@@ -64,5 +64,13 @@ public class PropertyController {
 		Response response = new Response("Data loaded successfully", 200, properties);
 		return response;
 	}
+	
+	@GetMapping("/display-waiting-only")
+	public Response getAllWaitingProperties() {
+
+		List<Property> properties = propertyService.getPropertyByDisplay(false);
+		Response response = new Response("Data loaded successfully", 200, properties);
+		return response;
+	}
 
 }

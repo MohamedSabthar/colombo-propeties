@@ -36,17 +36,24 @@ public class Property {
 	private Boolean display; // display in the front-end if only true
 	private Boolean status; // soled or not
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonManagedReference
+	@ManyToOne(fetch = FetchType.EAGER)
 	private PropertyType propertyType;
-	@ManyToOne(fetch = FetchType.LAZY)
+	
+	@JsonManagedReference
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Location location;
-	@ManyToOne(fetch = FetchType.LAZY)
+	
+	@JsonManagedReference
+	@ManyToOne(fetch = FetchType.EAGER)
 	private SaleType saleType;
 	
-	 @JsonManagedReference
-	@OneToMany(mappedBy = "property", fetch = FetchType.LAZY, cascade = CascadeType.ALL,  orphanRemoval = true)
+	@JsonManagedReference
+	@OneToMany(mappedBy = "property", fetch = FetchType.EAGER, cascade = CascadeType.ALL,  orphanRemoval = true)
 	private List<Image> images;
-	@ManyToOne(fetch = FetchType.LAZY)
+	
+	@JsonManagedReference
+	@ManyToOne(fetch = FetchType.EAGER)
 	private User user;
 
 	// Temperer

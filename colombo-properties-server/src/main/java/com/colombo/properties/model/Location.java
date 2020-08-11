@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Location {
 
@@ -17,6 +19,7 @@ public class Location {
 	private Integer id;
 	private String location;
 
+	@JsonBackReference
 	@OneToMany(mappedBy = "location", fetch = FetchType.EAGER)
 	private List<Property> properties;
 

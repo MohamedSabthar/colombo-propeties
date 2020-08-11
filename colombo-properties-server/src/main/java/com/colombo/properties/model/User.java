@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class User {
 
@@ -20,6 +22,7 @@ public class User {
 	private String email;
 	private String phone;
 
+	@JsonBackReference
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 	private List<Property> propeties;
 
