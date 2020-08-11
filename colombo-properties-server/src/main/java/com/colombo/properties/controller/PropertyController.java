@@ -1,5 +1,7 @@
 package com.colombo.properties.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,19 +24,16 @@ public class PropertyController {
 	private PropertyService propertyService;
 
 	@PostMapping("/create")
-	public Response createProperty(
-			@RequestBody CreatePropertyRequest request
-			) {
-		Response response = null;
+	public Response createProperty(@RequestBody CreatePropertyRequest request) {
 
+		Response response = null;
 		try {
-			Property property;
-//			property = propertyService.saveProperty(request);
-			property = propertyService.getProperty(21l);
-			response = new Response("Property saved successfully", 201, property.getLocation());
+			System.out.println(propertyService);
+			Property property = propertyService.saveProperty(request);
+			response = new Response("Property saved successfully", 201, property);
 
 		} catch (Exception e) {
-
+			System.out.println(e);
 			response = new Response("Error saving propety", 400);
 		}
 
@@ -43,8 +42,8 @@ public class PropertyController {
 
 	@PutMapping("/update-display")
 	public Response updateStatusOfDisplay(@RequestBody UpdatePropertyDisplayRequest request) {
-		Response response = null;
 
+		Response response = null;
 		try {
 			propertyService.updatePropertyDisplay(request);
 
@@ -56,6 +55,14 @@ public class PropertyController {
 
 		return response;
 
+	}
+
+	@GetMapping("/display-accepted-only")
+	public Response getAllAcceptedProperties() {
+
+		List<Property> properties = propertyService.getPropertyByDisplay(true);
+		Response response = new Response("Data loaded successfully", 200, properties);
+		return response;
 	}
 
 }

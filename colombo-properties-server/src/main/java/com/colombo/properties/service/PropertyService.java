@@ -1,5 +1,7 @@
 package com.colombo.properties.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,9 +29,12 @@ public class PropertyService {
 	public Property saveProperty(CreatePropertyRequest request) {
 		Property property = new Property(request);
 		Property result = propertyRepository.save(property);
-
-		request.getImages().forEach((img) -> img.setProperty(result));
-		imageRepository.saveAll(request.getImages());
+		try {
+			request.getImages().forEach((img) -> img.setProperty(result));
+			imageRepository.saveAll(request.getImages());
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 
 		System.out.println(result);
 		return result;
@@ -40,6 +45,10 @@ public class PropertyService {
 		property.setDisplay(request.getDisplay());
 		// imageRepository.saveAll(property.getImages());
 		return propertyRepository.save(property);
+	}
+	
+	public List<Property> getPropertyByDisplay(Boolean isDisplayed){
+		return propertyRepository.findByDisplay(isDisplayed);
 	}
 
 }

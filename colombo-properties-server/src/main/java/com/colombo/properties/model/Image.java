@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Image {
 
@@ -20,6 +22,7 @@ public class Image {
 	@Column(length = 512)
 	private String image;
 
+    @JsonBackReference
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Property property;
 

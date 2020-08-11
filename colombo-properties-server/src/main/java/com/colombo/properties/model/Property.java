@@ -2,6 +2,7 @@ package com.colombo.properties.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.colombo.properties.dao.PropertyTypeRepository;
 import com.colombo.properties.dto.CreatePropertyRequest;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 //import com.colombo.properties.dto.CreatePropertyRequest;
 
@@ -40,7 +42,9 @@ public class Property {
 	private Location location;
 	@ManyToOne(fetch = FetchType.LAZY)
 	private SaleType saleType;
-	@OneToMany(mappedBy = "property", fetch = FetchType.LAZY)
+	
+	 @JsonManagedReference
+	@OneToMany(mappedBy = "property", fetch = FetchType.LAZY, cascade = CascadeType.ALL,  orphanRemoval = true)
 	private List<Image> images;
 	@ManyToOne(fetch = FetchType.LAZY)
 	private User user;
@@ -58,8 +62,7 @@ public class Property {
 		setPrice(request.getPrice());
 		setDisplay(false);
 		setStatus(false); // setting status to not-sold
-		
-		
+
 		setPropertyType(request.getPropertyType());
 		setLocation(request.getLocation());
 		setSaleType(request.getSaleType());
