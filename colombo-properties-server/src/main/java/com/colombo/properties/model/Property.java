@@ -10,11 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.colombo.properties.dao.PropertyTypeRepository;
 import com.colombo.properties.dto.CreatePropertyRequest;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -39,19 +35,19 @@ public class Property {
 	@JsonManagedReference
 	@ManyToOne(fetch = FetchType.EAGER)
 	private PropertyType propertyType;
-	
+
 	@JsonManagedReference
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Location location;
-	
+
 	@JsonManagedReference
 	@ManyToOne(fetch = FetchType.EAGER)
 	private SaleType saleType;
-	
+
 	@JsonManagedReference
-	@OneToMany(mappedBy = "property", fetch = FetchType.EAGER, cascade = CascadeType.ALL,  orphanRemoval = true)
+	@OneToMany(mappedBy = "property", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Image> images;
-	
+
 	@JsonManagedReference
 	@ManyToOne(fetch = FetchType.EAGER)
 	private User user;
@@ -220,8 +216,9 @@ public class Property {
 	public String toString() {
 		return "Property [id=" + id + ", title=" + title + ", description=" + description + ", address=" + address
 				+ ", landSize=" + landSize + ", propertySize=" + propertySize + ", price=" + price + ", display="
-				+ display + ", status=" + status + ", propertyType=" + propertyType + ", location=" + location
-				+ ", saleType=" + saleType + ", images=" + images + ", user=" + user + "]";
+				+ display + ", status=" + status + ", propertyType=" + propertyType.getType() + ", location="
+				+ location.getLocation() + ", saleType=" + saleType.getType() + ", images=" + images.size() + ", user="
+				+ user.getId() + "]";
 	}
 
 }

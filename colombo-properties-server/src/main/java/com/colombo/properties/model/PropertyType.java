@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.colombo.properties.dto.CreatePropertyTypeRequest;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
@@ -22,6 +23,14 @@ public class PropertyType {
 	@JsonBackReference
 	@OneToMany(mappedBy = "propertyType", fetch = FetchType.EAGER)
 	private List<Property> properties;
+
+	public PropertyType() {
+
+	}
+
+	public PropertyType(CreatePropertyTypeRequest request) {
+		setType(request.getType());
+	}
 
 	public Integer getId() {
 		return id;

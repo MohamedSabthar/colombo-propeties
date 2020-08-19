@@ -2,18 +2,7 @@ package com.colombo.properties.dto;
 
 import java.util.List;
 
-import javax.persistence.Entity;
-
 import com.colombo.properties.model.Image;
-import com.colombo.properties.model.Location;
-import com.colombo.properties.model.PropertyType;
-import com.colombo.properties.model.SaleType;
-import com.colombo.properties.model.User;
-import com.colombo.properties.service.LocationService;
-import com.colombo.properties.service.PropertyTypeService;
-import com.colombo.properties.service.SaleTypeService;
-import com.colombo.properties.service.UserService;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 public class CreatePropertyRequest {

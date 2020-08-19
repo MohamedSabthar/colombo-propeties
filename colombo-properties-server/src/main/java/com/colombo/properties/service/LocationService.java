@@ -1,5 +1,7 @@
 package com.colombo.properties.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +19,7 @@ public class LocationService {
 		return locationRepository.findById(id).get();
 	}
 
-	@Override
-	public String toString() {
-		return "LocationService [locationRepository=" + locationRepository + "]";
+	public List<Location> getAllLocation(){
+		return (List<Location>) locationRepository.findAll();
 	}
-
 }

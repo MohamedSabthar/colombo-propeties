@@ -1,10 +1,12 @@
 package com.colombo.properties.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Service;
 
 import com.colombo.properties.dao.PropertyTypeRepository;
+import com.colombo.properties.dto.CreatePropertyTypeRequest;
 import com.colombo.properties.model.PropertyType;
 
 @Service
@@ -18,9 +20,18 @@ public class PropertyTypeService {
 		return propertyTypeRepository.findById(id).get();
 	}
 
-	@Override
-	public String toString() {
-		return "PropertyTypeService [propertyTypeRepository=" + propertyTypeRepository + "]";
+	public PropertyType savePropertyType(CreatePropertyTypeRequest request) {
+
+		PropertyType propertyType = new PropertyType(request);
+		PropertyType result = propertyTypeRepository.save(propertyType);
+
+		System.out.println(result);
+		return result;
+
+	}
+
+	public List<PropertyType> getAllPropertyTypes() {
+		return (List<PropertyType>) propertyTypeRepository.findAll();
 	}
 
 }

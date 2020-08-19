@@ -1,5 +1,6 @@
 package com.colombo.properties.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.colombo.properties.dao.ImageRepository;
 import com.colombo.properties.dao.PropertyRepository;
 import com.colombo.properties.dto.CreatePropertyRequest;
+import com.colombo.properties.dto.FilterPropertyRequest;
 import com.colombo.properties.dto.UpdatePropertyDisplayRequest;
 //import com.colombo.properties.dto.CreatePropertyRequest;
 //import com.colombo.properties.dto.UpdatePropertyDisplayRequest;
@@ -46,9 +48,32 @@ public class PropertyService {
 		// imageRepository.saveAll(property.getImages());
 		return propertyRepository.save(property);
 	}
-	
-	public List<Property> getPropertyByDisplay(Boolean isDisplayed){
+
+	public List<Property> getPropertyByDisplay(Boolean isDisplayed) {
 		return propertyRepository.findByDisplay(isDisplayed);
+	}
+
+	public List<Property> filterProperty(FilterPropertyRequest request) {
+		if (request.getLocation() == 0 && request.getPropertyType() == 0 && request.getLocation() == 0)
+			return propertyRepository.findByDisplay(true);
+		if (request.getLocation() == 0 && request.getPropertyType() == 0)
+			return propertyRepository.findBySaleTypeIdAndDisplay(request.getSaleType(), true);
+		if (request.getLocation() == 0 && request.getSaleType() == 0)
+			return propertyRepository.findByPropertyTypeIdAndDisplay(request.getPropertyType(), true);
+		if (request.getPropertyType() == 0 && request.getSaleType() == 0)
+			return propertyRepository.findByLocationIdAndDisplay(request.getLocation(), true);
+		if (request.getPropertyType() == 0)
+			return propertyRepository.findBySaleTypeIdAndLocationIdAndDisplay(request.getSaleType(),
+					request.getLocation(), true);
+		if (request.getLocation() == 0)
+			return propertyRepository.findByPropertyTypeIdAndSaleTypeIdAndDisplay(request.getPropertyType(),
+					request.getSaleType(), true);
+		if (request.getSaleType() == 0)
+			return propertyRepository.findByPropertyTypeIdAndLocationIdAndDisplay(request.getPropertyType(),
+					request.getLocation(), true);
+		return propertyRepository.findByPropertyTypeIdAndSaleTypeIdAndLocationIdAndDisplay(request.getPropertyType(),
+				request.getSaleType(), request.getLocation(), true);
+
 	}
 
 }
