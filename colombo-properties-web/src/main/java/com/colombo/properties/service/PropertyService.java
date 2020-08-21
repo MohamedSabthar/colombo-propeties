@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.colombo.properties.dto.CreatePropertyRequest;
 import com.colombo.properties.dto.FilterPropertyRequest;
 import com.colombo.properties.dto.PropertiesResponse;
 import com.colombo.properties.dto.PropertyResponse;
@@ -63,6 +64,19 @@ public class PropertyService {
 			System.out.println(e.getStackTrace());
 		}
 		return properties;
+	}
+
+	public Boolean createProperty(CreatePropertyRequest request) {
+
+		try {
+			PropertyResponse propertiesResponse = restTemplate.postForObject(serverBaseUrl + "property/create", request,
+					PropertyResponse.class);
+			if (propertiesResponse.getStatus() == 201)
+				return true;
+		} catch (ClassCastException e) {
+			System.out.println(e.getStackTrace());
+		}
+		return false;
 	}
 
 }

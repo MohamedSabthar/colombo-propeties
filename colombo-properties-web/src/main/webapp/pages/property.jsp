@@ -99,11 +99,34 @@
 					<div class="card img-carousal " style="margin: 2%;">
 						<div id="carouselExampleIndicators" class="carousel slide"
 							data-ride="carousel">
+
+							<c:if test="${loop.first}">
+
+							</c:if>
+							<c:if test="${not loop.first}">
+								<div class="carousel-item">
+									<img src="/uploads/${image.image}" class="d-block w-100"
+										alt="..." height="600px">
+								</div>
+							</c:if>
 							<ol class="carousel-indicators">
-								<li data-target="#carouselExampleIndicators" data-slide-to="0"
-									class="active"></li>
-								<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-								<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+
+								<c:forEach items="${property.images}" var="image"
+									varStatus="loop">
+									<c:if test="${loop.first}">
+										<li data-target="#carouselExampleIndicators" data-slide-to="0"
+											class="active"></li>
+
+									</c:if>
+									<c:if test="${not loop.first}">
+										<li data-target="#carouselExampleIndicators"
+											data-slide-to="loop"></li>
+
+									</c:if>
+								</c:forEach>
+
+
+
 							</ol>
 							<div class="carousel-inner">
 
@@ -111,17 +134,17 @@
 									varStatus="loop">
 									<c:if test="${loop.first}">
 										<div class="carousel-item active">
-											<img src="${image.image}" class="d-block w-100" alt="..."
-												height="600px">
+											<img src="/uploads/${image.image}" class="d-block w-100"
+												alt="..." height="600px">
 										</div>
 
 									</c:if>
-
-									<div class="carousel-item">
-										<img src="${image.image}" class="d-block w-100" alt="..."
-											height="600px">
-									</div>
-
+									<c:if test="${not loop.first}">
+										<div class="carousel-item">
+											<img src="/uploads/${image.image}" class="d-block w-100"
+												alt="..." height="600px">
+										</div>
+									</c:if>
 								</c:forEach>
 
 

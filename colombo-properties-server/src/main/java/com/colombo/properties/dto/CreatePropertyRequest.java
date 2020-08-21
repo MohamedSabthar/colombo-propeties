@@ -2,8 +2,6 @@ package com.colombo.properties.dto;
 
 import java.util.List;
 
-import com.colombo.properties.model.Image;
-
 public class CreatePropertyRequest {
 
 	private String title;

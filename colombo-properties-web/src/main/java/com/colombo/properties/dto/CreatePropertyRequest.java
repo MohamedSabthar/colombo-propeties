@@ -2,9 +2,6 @@ package com.colombo.properties.dto;
 
 import java.util.List;
 
-import com.colombo.properties.model.Image;
-
-
 public class CreatePropertyRequest {
 
 	private String title;
@@ -17,7 +14,7 @@ public class CreatePropertyRequest {
 	private Integer propertyType;
 	private Integer location;
 	private Integer saleType;
-	private List<Image> images;
+	private List<String> images;
 	private Long user;
 
 	public String getTitle() {
@@ -100,11 +97,11 @@ public class CreatePropertyRequest {
 		this.user = user;
 	}
 
-	public List<Image> getImages() {
+	public List<String> getImages() {
 		return images;
 	}
 
-	public void setImages(List<Image> images) {
+	public void setImages(List<String> images) {
 		this.images = images;
 	}
 

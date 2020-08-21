@@ -98,7 +98,7 @@
 											<c:forEach items="${property.images}" var="image"
 												varStatus="loop">
 												<c:if test="${loop.first}">
-													<img width="250" height="210" src="${image.image}"
+													<img width="250" height="210" src="/uploads/${image.image}"
 														class="img-fluid rounded mb-0" alt="smaple image">
 												</c:if>
 
