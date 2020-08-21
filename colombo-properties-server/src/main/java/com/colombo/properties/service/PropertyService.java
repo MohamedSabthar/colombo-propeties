@@ -81,4 +81,8 @@ public class PropertyService {
 
 	}
 
+	public List<Property> getUserProperties(Long userId) {
+		return propertyRepository.findByUserId(userId);
+	}
+
 }

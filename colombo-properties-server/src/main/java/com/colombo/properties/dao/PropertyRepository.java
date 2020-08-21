@@ -28,4 +28,6 @@ public interface PropertyRepository extends CrudRepository<Property, Long> {
 	public List<Property> findByLocationIdAndDisplay(Integer locationId, Boolean display);
 
 	public List<Property> findBySaleTypeIdAndDisplay(Integer saleTypeId, Boolean display);
+
+	public List<Property> findByUserId(Long userId);
 }

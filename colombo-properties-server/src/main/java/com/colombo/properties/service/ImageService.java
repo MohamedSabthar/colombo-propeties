@@ -7,7 +7,7 @@ import com.colombo.properties.dao.ImageRepository;
 
 @Service
 public class ImageService {
-
+	
 	@Autowired
 	private ImageRepository imageRepository;
 }

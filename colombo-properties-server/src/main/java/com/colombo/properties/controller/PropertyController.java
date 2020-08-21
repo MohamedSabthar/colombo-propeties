@@ -97,4 +97,17 @@ public class PropertyController {
 		return response;
 	}
 
+	@GetMapping("/user/{id}")
+	public Response getUserProperties(@PathVariable Long id) {
+		Response response = null;
+		try {
+			List<Property> properties = propertyService.getUserProperties(id);
+			response = new Response("Data loaded successfully", 200, properties);
+		} catch (NoSuchElementException e) {
+			response = new Response("Data not found", 404, null);
+		}
+
+		return response;
+	}
+
 }

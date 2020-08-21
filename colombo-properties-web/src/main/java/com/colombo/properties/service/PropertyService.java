@@ -79,4 +79,17 @@ public class PropertyService {
 		return false;
 	}
 
+	public List<Property> getUserProperties(Long id) {
+
+		List<Property> properties = null;
+		try {
+			PropertiesResponse propertiesResponse = restTemplate.getForObject(serverBaseUrl + "property/user/" + id,
+					PropertiesResponse.class);
+			properties = (List<Property>) propertiesResponse.getResult();
+		} catch (ClassCastException e) {
+			System.out.println(e.getStackTrace());
+		}
+		return properties;
+	}
+
 }

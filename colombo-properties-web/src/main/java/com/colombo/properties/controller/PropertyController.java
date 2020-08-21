@@ -143,9 +143,16 @@ public class PropertyController {
 
 	@GetMapping("/create")
 	public ModelAndView create() {
+		System.out.println("hit****");
+		Long userId = 2l;
 		var mv = new ModelAndView();
 		mv.setViewName("create-property");
 		mv.addObject("createProperty", new CreatePropertyRequest());
+		mv.addObject("saleTypes", saleTyperService.getAllSaleType());
+		mv.addObject("propertyTypes", propertyTypeService.getAllPropertyType());
+		mv.addObject("locations", locationService.getAllLocation());
+		mv.addObject("properties", propertyService.getUserProperties(userId));
+		mv.addObject("user", userId); // pass the user id
 		return mv;
 	}
 
