@@ -192,7 +192,7 @@
 					</div>
 
 					<input type="submit" value="submit"
-						class="btn btn-primary btn-lg btn-block" />
+						class="btn btn-warning btn-lg btn-block" />
 				</form:form>
 			</div>
 

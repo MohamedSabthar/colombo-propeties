@@ -74,19 +74,19 @@ public class PropertyController {
 		mv.addObject("locations", locations);
 
 		if (filterPropertyRequest.getSaleType() == 0)
-			search.put("searchSaleType", "Sale Type : All");
+			search.put("searchSaleType", "All");
 		else
 			search.put("searchSaleType", saleTypes.stream()
 					.filter(type -> filterPropertyRequest.getSaleType() == type.getId()).findFirst().get().getType());
 
 		if (filterPropertyRequest.getPropertyType() == 0)
-			search.put("searchPropertyType", "Property Type : All");
+			search.put("searchPropertyType", "All");
 		else
 			search.put("searchPropertyType",
 					propertyTypes.stream().filter(type -> filterPropertyRequest.getPropertyType() == type.getId())
 							.findFirst().get().getType());
 		if (filterPropertyRequest.getLocation() == 0)
-			search.put("searchLocation", "Location : All");
+			search.put("searchLocation", "All");
 		else
 			search.put("searchLocation",
 					locations.stream().filter(type -> filterPropertyRequest.getLocation() == type.getId()).findFirst()

@@ -82,8 +82,8 @@
 	<div class="container rounded-lg border-0 "
 		style="margin-top: 2%; margin-bottom: 5%; border: 1px solid; padding: 2%; background-color: white;">
 		<div class="search-result">
-			<h4>Showing filter result for "${searchLocation},
-				${searchSaleType}, ${searchPropertyType }"</h4>
+			<h4>Showing filter result for Location : ${searchLocation},
+				Sale-Type : ${searchSaleType}, Property-Type : ${searchPropertyType }</h4>
 		</div>
 		<hr />
 		<div class="row first-row">
@@ -192,8 +192,8 @@
 						</form:select>
 					</div>
 
-					<input type="submit" value="submit"
-						class="btn btn-primary btn-lg btn-block" />
+					<input type="submit" value="Search"
+						class="btn btn-warning btn-lg btn-block" />
 				</form:form>
 			</div>
 
