@@ -1,5 +1,6 @@
 package com.colombo.properties.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import com.colombo.properties.dao.PropertyRepository;
 import com.colombo.properties.dto.CreatePropertyRequest;
 import com.colombo.properties.dto.FilterPropertyRequest;
 import com.colombo.properties.dto.UpdatePropertyDisplayRequest;
+import com.colombo.properties.model.Image;
 //import com.colombo.properties.dto.CreatePropertyRequest;
 //import com.colombo.properties.dto.UpdatePropertyDisplayRequest;
 import com.colombo.properties.model.Property;
@@ -30,14 +32,18 @@ public class PropertyService {
 	public Property saveProperty(CreatePropertyRequest request) {
 		Property property = new Property(request);
 		Property result = propertyRepository.save(property);
+		List<Image> images = new ArrayList<>();
 		try {
-			request.getImages().forEach((img) -> img.setProperty(result));
-			imageRepository.saveAll(request.getImages());
+			request.getImages().forEach((img) -> {
+				var i = new Image(img);
+				i.setProperty(result);
+				images.add(i);
+			});
+			imageRepository.saveAll(images);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 
-		System.out.println(result);
 		return result;
 	}
 

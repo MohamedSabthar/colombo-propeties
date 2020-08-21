@@ -26,8 +26,6 @@ public class PropertyController {
 	@Autowired
 	private PropertyService propertyService;
 
-	public static String uploadDirectory = System.getProperty("user.dir") + "/uploads";
-
 	@PostMapping("/create")
 	public Response createProperty(@RequestBody CreatePropertyRequest request) {
 

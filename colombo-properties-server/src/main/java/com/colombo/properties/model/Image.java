@@ -22,7 +22,7 @@ public class Image {
 	@Column(length = 512)
 	private String image;
 
-    @JsonBackReference
+	@JsonBackReference
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Property property;
 
