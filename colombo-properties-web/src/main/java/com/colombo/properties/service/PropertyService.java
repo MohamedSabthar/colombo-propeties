@@ -66,17 +66,17 @@ public class PropertyService {
 		return properties;
 	}
 
-	public Boolean createProperty(CreatePropertyRequest request) {
+	public Property createProperty(CreatePropertyRequest request) {
 
 		try {
 			PropertyResponse propertiesResponse = restTemplate.postForObject(serverBaseUrl + "property/create", request,
 					PropertyResponse.class);
 			if (propertiesResponse.getStatus() == 201)
-				return true;
+				return propertiesResponse.getResult();
 		} catch (ClassCastException e) {
 			System.out.println(e.getStackTrace());
 		}
-		return false;
+		return null;
 	}
 
 	public List<Property> getUserProperties(Long id) {

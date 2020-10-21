@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.colombo.properties.dto.CreatePropertyRequest;
 import com.colombo.properties.dto.FilterPropertyRequest;
 import com.colombo.properties.model.Location;
+import com.colombo.properties.model.Property;
 import com.colombo.properties.model.PropertyType;
 import com.colombo.properties.model.SaleType;
 import com.colombo.properties.service.LocationService;
@@ -131,20 +132,23 @@ public class PropertyController {
 		}
 
 		request.setImages(images);
-
-		if (propertyService.createProperty(request))
-			mv.addObject("result", "Addvertisment created and ready for review");
-		else
+		Property result = propertyService.createProperty(request);
+		if (result!=null)
+		{
+			mv.addObject(mv.addObject("property", result));
+			mv.setViewName("add-success");
+		}
+		else {
 			mv.addObject("result", "Error posting addvertisment");
-
-		mv.setViewName("404");// set back page
+			mv.setViewName("404");// set back page
+		}
 		return mv;
 	}
 
 	@GetMapping("/create")
 	public ModelAndView create() {
 		System.out.println("hit****");
-		Long userId = 2l;
+		Long userId = 1l;
 		var mv = new ModelAndView();
 		mv.setViewName("create-property");
 		mv.addObject("createProperty", new CreatePropertyRequest());
