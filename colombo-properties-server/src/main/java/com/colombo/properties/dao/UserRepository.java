@@ -7,5 +7,5 @@ import com.colombo.properties.model.User;
 
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
-
+	User findByUsername(String username);
 }

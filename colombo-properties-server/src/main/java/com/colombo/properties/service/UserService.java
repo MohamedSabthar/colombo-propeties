@@ -16,5 +16,9 @@ public class UserService {
 		// here.get() is used for get the User from optional<User>
 		return userRepository.findById(id).get();
 	}
+	
+	public User getUser(String username) {
+		return userRepository.findByUsername(username);
+	}
 
 }

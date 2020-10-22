@@ -16,15 +16,21 @@
 <title>Login</title>
 </head>
 <body class="text-center">
-	<form:form class="form-signin">
+	<form:form class="form-signin" method="post" action="/login"
+		modelAttribute="loginRequest">
 		<img class="mb-4 align-slef-center" src="../img/Screenshot (297).png"
 			alt="" width="300" height="80">
-		<label for="inputEmail" class="sr-only ">Email address</label>
-		<input type="email" id="inputEmail" class="form-control  m-1"
-			placeholder="Email address" required="" autofocus="">
-		<label for="inputPassword" class="sr-only">Password</label>
-		<input type="password" id="inputPassword" class="form-control m-1"
-			placeholder="Password" required="">
+		<div class="form-controll">
+			<label for="inputUsername" class="sr-only ">Username</label>
+			<form:input type="text" id="inputUsername" class="form-control  m-1"
+				path="username" placeholder="Username" />
+		</div>
+		<div class="form-controll">
+			<label for="inputPassword" class="sr-only">Password</label>
+			<form:input type="password" id="inputPassword"
+				class="form-control m-1" placeholder="Password" path="password"
+				/>
+		</div>
 		<div class="mb-3 mt-2">
 			<a class="text-warning" href="\register">Need to Register?</a>
 		</div>

@@ -22,64 +22,10 @@
 
 	<!-- Brand -->
 
-	<header role="banner">
-		<div class="container-fluid bg-white">
-			<img src="../img/Screenshot (297).png" width="700">
-		</div>
-
-
-		<!-- Navbar -->
-		<nav class="navbar navbar-expand-lg navbar-light bg-warning "
-			style="max-height: 75px;">
-
-
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav mr-auto" style="margin-left: 100px;">
-
-					<li class="nav-item active" style="padding-right: 15px;"><a
-						class="nav-link" href="#"><strong>Home</strong> <span
-							class="sr-only">(current)</span></a></li>
-					<li class="nav-item active" style="padding-right: 15px;"><a
-						class="nav-link" href="#"><strong>About Us</strong> <span
-							class="sr-only">(current)</span></a></li>
-					<li class="nav-item active" style="padding-right: 15px;"><a
-						class="nav-link" href="#"><strong>Contact</strong> <span
-							class="sr-only">(current)</span></a></li>
-
-				</ul>
-				<form class="form-inline my-2 my-lg-0">
-					<input class="form-control mr-sm-2 " style="width: 250px;"
-						type="search" placeholder="What are you looking for ?"
-						aria-label="Search">
-					<button class="btn btn-light" type="submit">
-						<i class="fa fa-search"></i>
-					</button>
-				</form>
-
-				<ul class="navbar-nav col-auto">
-					<li class="nav-item" style="padding-right: 60px;">
-						<button type="button" class="btn btn-outline-dark">POST
-							YOUR AD</button>
-					</li>
-				</ul>
-				<ul class="navbar-nav" style="padding: 0px;">
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"> <img src="../img/avatar-5.jpg"
-							class="rounded-circle z-depth-0" alt="avatar image" height="50">
-					</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="#">Profile</a> <a
-								class="dropdown-item" href="#">Sign out</a>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="#">Something else here</a>
-						</div></li>
-				</ul>
-			</div>
-		</nav>
-	</header>
-
+		<jsp:include page="../partials/header.jsp">
+		<jsp:param name="type" value="authors" />
+	</jsp:include>
+	
 	<!--- Cards -->
 	<c:if test="${not empty property}">
 		<div class="container rounded-lg border-0 "
@@ -184,14 +130,14 @@
 									<div class="card-body">${property.description}</div>
 								</div>
 							</div>
-							<div class="card">
+						 <div class="card">
 								<div class="card-header bg-white" id="headingTwo">
 									<h5 class="mb-0">
 										<button class="btn btn-link" data-toggle="collapse"
 											data-target="#collapseTwo" aria-expanded="true"
 											aria-controls="collapseTwo">
 											<h4>
-												<i class="fa fa-chevron-down"></i> Details
+												<i class="fa fa-chevron-down"></i> Address
 											</h4>
 										</button>
 									</h5>
@@ -200,32 +146,15 @@
 									aria-labelledby="headingTwo" data-parent="#accordion">
 									<div class="card-body col-md-6 col-sm-6"
 										style="padding-left: 5%;">
-										<table width="90%">
-											<tbody>
-												<tr>
-													<td class="left align-middle" width="35%">Property
-														Type</td>
-													<td class="right"><b>House</b></td>
-												</tr>
-												<tr>
-													<td class="left align-middle" width="35%">Bedrooms</td>
-													<td class="right"><b>3</b></td>
-												</tr>
-												<tr>
-													<td class="left align-middle" width="35%">Bathrooms</td>
-													<td class="right"><b>2</b></td>
-												</tr>
-												<tr>
-													<td class="left align-middle" width="35%">Floor area</td>
-													<td class="right"><b>3</b></td>
-												</tr>
-											</tbody>
-										</table>
+										
 									</div>
-
+	<div id="collapseOne" class="collapse show"
+									aria-labelledby="headingOne" data-parent="#accordion">
+									<div class="card-body">${property.address}</div>
+								</div>
 
 								</div>
-							</div>
+							</div> 
 
 						</div>
 
@@ -256,7 +185,7 @@
 
 							<div class="col-8 mb-3" style="display: flex; margin-top: 7%;">
 								<span class="align-middle"><h5>
-										<b>K.B Jessica</b>
+										<b>${property.user.username}</b>
 									</h5></span>
 							</div>
 						</div>
@@ -269,7 +198,7 @@
 								<i class="fas fa-phone fa-rotate-90"></i> Call
 							</button>
 							<div class="collapse" id="collapseExample1">
-								<div class="card card-body">+94 77 8907 321</div>
+								<div class="card card-body">${property.user.phone}</div>
 							</div>
 							<br>
 
@@ -279,17 +208,17 @@
 								<i class="fa fa-envelope"></i> Email
 							</button>
 							<div class="collapse" id="collapseExample2">
-								<div class="card card-body">Jessica@mail.com</div>
+								<div class="card card-body">${property.user.email}</div>
 							</div>
 							<br>
-							<button class="btn btn-primary btn-lg btn-block" type="button"
+						<%-- 	<button class="btn btn-primary btn-lg btn-block" type="button"
 								data-toggle="collapse" data-target="#collapseExample3"
 								aria-expanded="false" aria-controls="collapseExample3">
 								Address</button>
 							<div class="collapse" id="collapseExample3">
-								<div class="card card-body">No 04, Jawatta Road Colombo 07
+								<div class="card card-body">${property.address}
 								</div>
-							</div>
+							</div> --%>
 						</div>
 
 
@@ -300,32 +229,11 @@
 
 			</div>
 		</div>
+		
 	</c:if>
-	<footer class="page-footer font-small bg-warning ">
-
-		<!-- Footer Elements -->
-
-		<!-- Copyright -->
-		<div class=" footer-copyright py-4  ">
-			<li class="copyright list-unstyled" style="text-align: center;">
-				© 2020 Copyright : All Rights Reserved</li>
-			<li class="team list-unstyled font-weight-bold"
-				style="text-align: right;">Designed & Developed By Team123</li>
-		</div>
-		<!-- Team -->
-
-	</footer>
-
-
-
-
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
-
+	<jsp:include page="../partials/footer.jsp">
+    <jsp:param name="type" value="all"/>
+</jsp:include>
+	
 </body>
 </html>

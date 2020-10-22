@@ -19,7 +19,7 @@
 <body style="background-color: #f2f2f2;">
 
 	<jsp:include page="../partials/header.jsp">
-		<jsp:param name="type" value="authors" />
+		<jsp:param name="type" value="admin" />
 	</jsp:include>
 
 	<div class="container rounded-lg border-0 "
@@ -188,7 +188,7 @@
 
 
 
-					<form:input path="user" value="${user}" type="" />
+					<form:input path="user" value="${user}" type="hidden" />
 
 
 
@@ -207,7 +207,7 @@
 
 
 
-					<input type="submit" value="Search"
+					<input type="submit" value="create"
 						class="btn btn-warning btn-lg btn-block" />
 				</form:form>
 			</div>

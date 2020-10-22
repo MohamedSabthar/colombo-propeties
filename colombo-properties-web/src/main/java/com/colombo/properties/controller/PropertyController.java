@@ -26,10 +26,12 @@ import com.colombo.properties.model.Location;
 import com.colombo.properties.model.Property;
 import com.colombo.properties.model.PropertyType;
 import com.colombo.properties.model.SaleType;
+import com.colombo.properties.service.AuthService;
 import com.colombo.properties.service.LocationService;
 import com.colombo.properties.service.PropertyService;
 import com.colombo.properties.service.PropertyTypeService;
 import com.colombo.properties.service.SaleTyperService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import colombo.properties.exception.PageNotFoundException;
 
@@ -45,6 +47,8 @@ public class PropertyController {
 	PropertyTypeService propertyTypeService;
 	@Autowired
 	LocationService locationService;
+	@Autowired
+	AuthService authService;
 
 	public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/webapp/uploads";
 
@@ -132,31 +136,45 @@ public class PropertyController {
 		}
 
 		request.setImages(images);
-		Property result = propertyService.createProperty(request);
-		if (result!=null)
-		{
-			mv.addObject(mv.addObject("property", result));
-			mv.setViewName("add-success");
+		Property result;
+		try {
+			result = propertyService.createProperty(request,authService.Jwt);
+			if (result!=null)
+			{
+				mv.addObject(mv.addObject("property", result));
+				mv.setViewName("redirect:/property/"+result.getId());
+			}
+			else {
+				mv.addObject("result", "Error posting addvertisment");
+				mv.setViewName("404");// set back page
+			}
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		else {
-			mv.addObject("result", "Error posting addvertisment");
-			mv.setViewName("404");// set back page
-		}
+	
+		
 		return mv;
 	}
 
 	@GetMapping("/create")
 	public ModelAndView create() {
 		System.out.println("hit****");
-		Long userId = 1l;
 		var mv = new ModelAndView();
-		mv.setViewName("create-property");
-		mv.addObject("createProperty", new CreatePropertyRequest());
-		mv.addObject("saleTypes", saleTyperService.getAllSaleType());
-		mv.addObject("propertyTypes", propertyTypeService.getAllPropertyType());
-		mv.addObject("locations", locationService.getAllLocation());
-		mv.addObject("properties", propertyService.getUserProperties(userId));
-		mv.addObject("user", userId); // pass the user id
+		if(authService.Jwt!=null)
+		{
+			int userId =  (int) authService.parser(authService.Jwt).get("id");
+			 
+			mv.setViewName("create-property");
+			mv.addObject("createProperty", new CreatePropertyRequest());
+			mv.addObject("saleTypes", saleTyperService.getAllSaleType());
+			mv.addObject("propertyTypes", propertyTypeService.getAllPropertyType());
+			mv.addObject("locations", locationService.getAllLocation());
+			mv.addObject("properties", propertyService.getUserProperties((long)userId,authService.Jwt));
+			mv.addObject("user", userId); // pass the user id
+		}
+		else
+		mv.setViewName("redirect:/login");
 		return mv;
 	}
 
