@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.colombo.properties.dto.CreatePropertyRequest;
+import com.colombo.properties.dto.UpdatePropertyRequest;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -72,6 +73,22 @@ public class Property {
 		setUser(request.getUser());
 	}
 
+	public Property(UpdatePropertyRequest property) {
+		setTitle(property.getTitle());
+		setDescription(property.getDescription());
+		setAddress(property.getAddress());
+		setLandSize(property.getLandSize());
+		setPropertySize(property.getPropertySize());
+		setPrice(property.getPrice());
+		setDisplay(false);
+		setStatus(false); // setting status to not-sold
+
+		setPropertyType(property.getPropertyType());
+		setLocation(property.getLocation());
+		setSaleType(property.getSaleType());
+		setUser(property.getUser());
+	}	
+	
 	public Long getId() {
 		return id;
 	}

@@ -1,11 +1,9 @@
 package com.colombo.properties.dto;
 
-import java.util.List;
 
-import com.colombo.properties.model.Property;
+public class UpdatePropertyRequest {
 
-public class CreatePropertyRequest {
-
+	private Long id;
 	private String title;
 	private String description;
 	private String address;
@@ -16,28 +14,15 @@ public class CreatePropertyRequest {
 	private Integer propertyType;
 	private Integer location;
 	private Integer saleType;
-	private List<String> images;
 	private Long user;
 	
-	public CreatePropertyRequest() {
-		
+	public Long getId() {
+		return id;
 	}
-	
-	public CreatePropertyRequest(Property property) {
-		
-		this.setTitle(property.getTitle());
-		this.setDescription(property.getDescription());
-		this.setAddress(property.getAddress());
-		this.setLandSize(property.getLandSize());
-		this.setPropertySize(property.getPropertySize());
-		this.setPrice(property.getPrice());
-		this.setPropertyType(property.getPropertyType().getId());
-		this.setLocation(property.getLocation().getId());
-		this.setSaleType(property.getSaleType().getId());
-		this.setUser(property.getUser().getId());
+
+	public void setId(Long id) {
+		this.id = id;
 	}
-	
-	
 	public String getTitle() {
 		return title;
 	}
@@ -118,20 +103,11 @@ public class CreatePropertyRequest {
 		this.user = user;
 	}
 
-	public List<String> getImages() {
-		return images;
-	}
-
-	public void setImages(List<String> images) {
-		this.images = images;
-	}
-
 	@Override
 	public String toString() {
 		return "CreatePropertyRequest [title=" + title + ", description=" + description + ", address=" + address
 				+ ", landSize=" + landSize + ", propertySize=" + propertySize + ", price=" + price + ", propertyType="
-				+ propertyType + ", location=" + location + ", saleType=" + saleType + ", images=" + images + ", user="
+				+ propertyType + ", location=" + location + ", saleType=" + saleType + ", user="
 				+ user + "]";
 	}
-
 }

@@ -16,37 +16,37 @@
 <title>Register</title>
 </head>
 <body class="text-center">
-	<form:form class="form-signin">
+	<form:form class="form-signin" modelAttribute="result">
 		<img class="mb-4 align-slef-center" src="../img/Screenshot (297).png"
 			alt="" width="300" height="80">
 
 		<label for="inputEmail" class="sr-only">Email address</label>
-		<input type="email" id="inputEmail" class="form-control m-1"
-			placeholder=" Email address" required autofocus>
+		<form:input type="email" id="inputEmail" class="form-control m-1"
+			path="email" placeholder=" Email address"  />
 
-		<label for="inputName" class="sr-only">Name</label>
-		<input type="text" id="inputName" class="form-control m-1"
-			placeholder="Name" required>
+		<label for="inputName" class="sr-only">Username</label>
+		<form:input type="text" id="inputName" class="form-control m-1"
+			path="username" placeholder="Name"  />
 
 		<label for="inputPhone" class="sr-only">Phone number</label>
-		<input type="text" id="inputPhone" class="form-control m-1"
-			placeholder="Phone number" required>
+		<form:input type="text" id="inputPhone" class="form-control m-1"
+			placeholder="Phone number"  path="phone" />
 
 
 		<label for="inputPassword" class="sr-only">Password</label>
-		<input type="password" id="inputPassword" class="form-control m-1"
-			placeholder="Password" required>
+		<form:input type="password" id="inputPassword" class="form-control m-1"
+			placeholder="password"  path="password" />
 
 		<label for="inputPassword" class="sr-only">Confirm Password</label>
 		<input type="password" id="inputPassword" class="form-control m-1"
-			placeholder="Confirm Password" required>
+			placeholder="Confirm Password" >
 
 
 		<div class="mb-3">
 			<a class="text-warning p-2" href="/login"> Go to Login</a>
 		</div>
-		<button class="btn btn-lg btn-warning btn-block " type="submit">Sign
-			up</button>
+		<input class="btn btn-lg btn-warning btn-block" value="Sign up"
+			type="submit">
 
 	</form:form>
 

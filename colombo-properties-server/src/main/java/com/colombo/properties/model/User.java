@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.colombo.properties.dto.RegisterUserRequest;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
@@ -22,6 +23,17 @@ public class User {
 	private String email;
 	private String phone;
 	private String role;
+	
+	public User() {
+		
+	}
+	
+	public User(RegisterUserRequest request) {
+		setUsername(request.getUsername());
+		setPassword(request.getPassword());
+		setEmail(request.getEmail());
+		setPhone(request.getPhone());
+	}
 
 	public String getRole() {
 		return role;
@@ -88,5 +100,7 @@ public class User {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email + ", phone="
 				+ phone + ", propeties=" + propeties + "]";
 	}
+	
+	
 
 }

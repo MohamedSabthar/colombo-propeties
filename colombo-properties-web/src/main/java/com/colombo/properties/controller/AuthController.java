@@ -7,7 +7,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.colombo.properties.dto.AuthRequest;
 import com.colombo.properties.dto.CreatePropertyRequest;
+import com.colombo.properties.dto.RegisterUserRequest;
+import com.colombo.properties.model.User;
 import com.colombo.properties.service.AuthService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 @Controller
 public class AuthController {
@@ -27,7 +30,7 @@ public class AuthController {
 	@GetMapping("/register")
 	public ModelAndView register() {
 		ModelAndView mv = new ModelAndView();
-		
+		mv.addObject("result", new RegisterUserRequest());
 		mv.setViewName("register");
 		return mv;
 	}
@@ -51,6 +54,22 @@ public class AuthController {
 	@GetMapping("/logout")
 	public ModelAndView logout() {
 		ModelAndView mv = new ModelAndView();
+		mv.setViewName("redirect:/login");
+		return mv;
+	}
+	
+	@PostMapping("/register")
+	public ModelAndView postLogin(@ModelAttribute("result") RegisterUserRequest request) {
+		
+		System.out.println(request);
+		ModelAndView mv = new ModelAndView();
+		String token = authService.getRegisterToken(request);
+		authService.Jwt = token;
+//		System.out.println("%%%hit");
+		System.out.println(token);
+		if(authService.Jwt!=null)
+		mv.setViewName("redirect:/property/create");
+		else
 		mv.setViewName("redirect:/login");
 		return mv;
 	}
