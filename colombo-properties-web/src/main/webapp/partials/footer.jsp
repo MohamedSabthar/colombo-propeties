@@ -6,10 +6,12 @@
 
 	<!-- Copyright -->
 	<div class=" footer-copyright py-4">
-		<li class="copyright list-unstyled" style="text-align: center;">
+	<ul class="list-unstyled text-center">
+		<li class="copyright d-block" style="text-align: center;">
 			© 2020 Copyright : All Rights Reserved</li>
-		<li class="team list-unstyled font-weight-bold"
-			style="text-align: right;">Designed & Developed By Team123</li>
+		<li class="team  font-weight-bold d-inline-block"
+			style="text-align: right;">Designed & Developed By E-Crew</li>
+			</ul>
 	</div>
 	<!-- Team -->
 

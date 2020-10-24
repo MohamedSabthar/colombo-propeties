@@ -7,7 +7,7 @@
 
 	<!-- Navbar -->
 	<nav class="navbar navbar-expand-lg navbar-light bg-warning "
-		style="max-height: 75px;">
+		style="min-height: 75px;">
 
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -20,7 +20,7 @@
 					class="nav-link" href="#"><strong>About Us</strong> <span
 						class="sr-only">(current)</span></a></li>
 				<li class="nav-item active" style="padding-right: 15px;"><a
-					class="nav-link" href="#"><strong>Contact</strong> <span
+					class="nav-link" href="/contact"><strong>Contact</strong> <span
 						class="sr-only">(current)</span></a></li>
 
 			</ul>

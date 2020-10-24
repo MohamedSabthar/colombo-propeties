@@ -141,7 +141,7 @@ public class PropertyController {
 			result = propertyService.createProperty(request,authService.Jwt);
 			if (result!=null)
 			{
-				mv.addObject(mv.addObject("property", result));
+			mv.addObject("property", result);
 				mv.setViewName("redirect:/property/"+result.getId());
 			}
 			else {
