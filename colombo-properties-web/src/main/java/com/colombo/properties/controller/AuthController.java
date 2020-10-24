@@ -14,46 +14,45 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 @Controller
 public class AuthController {
-	
+
 	@Autowired
 	AuthService authService;
 
 	@GetMapping("/login")
 	public ModelAndView login() {
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("loginRequest",new AuthRequest());
+		mv.addObject("loginRequest", new AuthRequest());
 		mv.setViewName("login");
 		return mv;
 	}
-
 
 	@GetMapping("/register")
 	public ModelAndView register() {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("result", new RegisterUserRequest());
+
 		mv.setViewName("register");
 		return mv;
 	}
-	
+
 	@PostMapping("/login")
 	public ModelAndView postLogin(@ModelAttribute("loginRequest") AuthRequest request) {
-		
 		System.out.println(request);
 		ModelAndView mv = new ModelAndView();
 		String token = authService.getToken(request);
 		authService.Jwt = token;
-//		System.out.println("%%%hit");
 		System.out.println(token);
-		if(authService.Jwt!=null)
-		mv.setViewName("redirect:/property/create");
-		else
-		mv.setViewName("redirect:/login");
+		if (authService.Jwt != null) {
+			mv.setViewName("redirect:/property/create");
+		} else
+			mv.setViewName("redirect:/login");
 		return mv;
 	}
-	
+
 	@GetMapping("/logout")
 	public ModelAndView logout() {
 		ModelAndView mv = new ModelAndView();
+		authService.Jwt = null;
 		mv.setViewName("redirect:/login");
 		return mv;
 	}

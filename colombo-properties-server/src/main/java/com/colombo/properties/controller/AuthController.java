@@ -31,9 +31,10 @@ public class AuthController {
 			authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
 		} catch (Exception ex) {
-			return new Response("token",403,null);
+			return new Response("token", 403, null);
 		}
 		User user = userService.getUser(authRequest.getUsername());
-		return new Response("token",200,jwtUtil.generateToken(authRequest.getUsername(),user.getId(),user.getRole()));
+		return new Response("token", 200,
+				jwtUtil.generateToken(authRequest.getUsername(), user.getId(), user.getRole()));
 	}
 }

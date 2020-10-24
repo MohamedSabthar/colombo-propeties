@@ -60,10 +60,9 @@
 												</h3>
 											</div>
 											<ul class="list-unstyled">
-												<li><i class="fas fa-bed"></i> : 3 &emsp; <i
-													class="fas fa-bath"> </i> : 2</li>
-												<li><strong>Perches : </strong> 12.8</li>
-												<li>No 08, Jawatta Road ,Colombo 07</li>
+													<li><strong>Land Size : </strong> ${property.landSize}</li>
+												<li><strong>Property Size : </strong> ${property.propertySize}</li>
+												<li><strong>Address : </strong>${property.address}</li>
 												<!-- <div>
 									<a href="#" class=" btn btn-primary stretched-link float-left">View Property</a>
 								</div> -->
@@ -150,8 +149,8 @@
 
 
 	<jsp:include page="../partials/footer.jsp">
-    <jsp:param name="type" value="all"/>
-</jsp:include>
+		<jsp:param name="type" value="all" />
+	</jsp:include>
 </body>
 
 </html>

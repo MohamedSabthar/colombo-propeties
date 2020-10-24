@@ -19,6 +19,7 @@ import com.colombo.properties.dto.FilterPropertyRequest;
 import com.colombo.properties.dto.PropertiesResponse;
 import com.colombo.properties.dto.PropertyResponse;
 import com.colombo.properties.dto.UpdatePropertyRequest;
+import com.colombo.properties.dto.UpdatePropertyDisplayRequest;
 import com.colombo.properties.model.Property;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,7 +31,6 @@ public class PropertyService {
 
 	@Autowired
 	RestTemplate restTemplate;
-
 
 	private HttpEntity<String> prepareWithJwt(String jwt, String body) {
 		HttpHeaders headers = new HttpHeaders();
@@ -90,19 +90,15 @@ public class PropertyService {
 		return properties;
 	}
 
-	public Property createProperty(CreatePropertyRequest request,String jwt) throws JsonProcessingException {
+	public Property createProperty(CreatePropertyRequest request, String jwt) throws JsonProcessingException {
 
 		try {
 			String req = new ObjectMapper().writeValueAsString(request);
 			System.out.println("hit : " + req);
-			HttpEntity<String> jwtReq = prepareWithJwt(
-					jwt,req);
+			HttpEntity<String> jwtReq = prepareWithJwt(jwt, req);
 			System.out.println("hit2");
-			ResponseEntity<PropertyResponse> propertiesResponse =
-//					restTemplate.postForObject(serverBaseUrl + "property/create", request,
-//					PropertyResponse.class);
-					restTemplate.exchange(serverBaseUrl + "property/create", HttpMethod.POST, jwtReq,
-							PropertyResponse.class);
+			ResponseEntity<PropertyResponse> propertiesResponse = restTemplate
+					.exchange(serverBaseUrl + "property/create", HttpMethod.POST, jwtReq, PropertyResponse.class);
 			System.out.println("hit3");
 			if (// propertiesResponse.getStatus() == 201
 			propertiesResponse.getStatusCode().equals(HttpStatus.CREATED))
@@ -115,21 +111,14 @@ public class PropertyService {
 		return null;
 	}
 
-	public List<Property> getUserProperties(Long id,String jwt) {
+	public List<Property> getUserProperties(Long id, String jwt) {
 
 		List<Property> properties = null;
 		try {
-//			PropertiesResponse propertiesResponse = restTemplate.getForObject(serverBaseUrl + "property/user/" + id,
-//					PropertiesResponse.class);
-//			properties = (List<Property>) propertiesResponse.getResult();
-			HttpEntity<String> jwtReq = prepareWithJwt(
-					jwt,null);
+			HttpEntity<String> jwtReq = prepareWithJwt(jwt, null);
 
-			ResponseEntity<PropertiesResponse> propertiesResponse =
-//					restTemplate.postForObject(serverBaseUrl + "property/create", request,
-//					PropertyResponse.class);
-					restTemplate.exchange(serverBaseUrl + "property/user/" + id, HttpMethod.GET, jwtReq,
-							PropertiesResponse.class);
+			ResponseEntity<PropertiesResponse> propertiesResponse = restTemplate
+					.exchange(serverBaseUrl + "property/user/" + id, HttpMethod.GET, jwtReq, PropertiesResponse.class);
 
 			properties = (List<Property>) propertiesResponse.getBody().getResult();
 
@@ -161,4 +150,68 @@ public class PropertyService {
 		}
 		return null;
 	}
+	public List<Property> getPendingProperties(String jwt) {
+
+		List<Property> properties = null;
+
+		try {
+			HttpEntity<String> jwtReq = prepareWithJwt(jwt, null);
+
+			ResponseEntity<PropertiesResponse> propertiesResponse = restTemplate.exchange(
+					serverBaseUrl + "property/display-waiting-only", HttpMethod.GET, jwtReq, PropertiesResponse.class);
+			if (// propertiesResponse.getStatus() == 201
+			propertiesResponse.getStatusCode().equals(HttpStatus.ACCEPTED))
+//				return propertiesResponse.getResult();
+				System.out.println("htter : " + propertiesResponse.getBody().getResult());
+			properties = propertiesResponse.getBody().getResult();
+		} catch (ClassCastException e) {
+			System.out.println(e.getStackTrace());
+		}
+		return properties;
+	}
+
+	public List<Property> getFilteredPendingProperties(FilterPropertyRequest request, String jwt)
+			throws JsonProcessingException {
+
+		List<Property> properties = null;
+
+		try {
+			String req = new ObjectMapper().writeValueAsString(request);
+			HttpEntity<String> jwtReq = prepareWithJwt(jwt, req);
+
+			ResponseEntity<PropertiesResponse> propertiesResponse = restTemplate.exchange(
+					serverBaseUrl + "property/filter-pending", HttpMethod.POST, jwtReq, PropertiesResponse.class);
+			if (// propertiesResponse.getStatus() == 201
+			propertiesResponse.getStatusCode().equals(HttpStatus.ACCEPTED))
+//				return propertiesResponse.getResult();
+				System.out.println("htter : " + propertiesResponse.getBody().getResult());
+			properties = propertiesResponse.getBody().getResult();
+		} catch (ClassCastException e) {
+			System.out.println(e.getStackTrace());
+		}
+		return properties;
+	}
+
+	public List<Property> updateDisplay(String jwt,Long id) throws JsonProcessingException {
+
+		List<Property> properties = null;
+
+		try {
+			String req = new ObjectMapper().writeValueAsString(new UpdatePropertyDisplayRequest(id,true));
+		
+			HttpEntity<String> jwtReq = prepareWithJwt(jwt, req);
+
+			ResponseEntity<PropertiesResponse> propertiesResponse = restTemplate.exchange(
+					serverBaseUrl + "property/update-display", HttpMethod.PUT, jwtReq, PropertiesResponse.class);
+			if (// propertiesResponse.getStatus() == 201
+			propertiesResponse.getStatusCode().equals(HttpStatus.ACCEPTED))
+//				return propertiesResponse.getResult();
+				System.out.println("htter : " + propertiesResponse.getBody().getResult());
+			properties = propertiesResponse.getBody().getResult();
+		} catch (ClassCastException e) {
+			System.out.println(e.getStackTrace());
+		}
+		return properties;
+	}
+
 }

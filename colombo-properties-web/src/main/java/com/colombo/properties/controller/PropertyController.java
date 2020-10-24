@@ -52,7 +52,17 @@ public class PropertyController {
 	@Autowired
 	AuthService authService;
 
+	// storage location to image directory
 	public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/webapp/uploads";
+
+	// method to pass role to view
+	private ModelAndView setRole(ModelAndView mv) {
+		if (authService.Jwt != null)
+			mv.addObject("role", authService.parser(authService.Jwt).get("role"));
+		else
+			mv.addObject("role", null);
+		return mv;
+	}
 
 	@GetMapping()
 	public String home() {
@@ -65,6 +75,8 @@ public class PropertyController {
 		ModelAndView mv = new ModelAndView();
 		try {
 			mv.addObject("property", propertyService.getProperty(id));
+			// pass role
+			mv = setRole(mv);
 			mv.setViewName("property");
 		} catch (PageNotFoundException e) {
 			mv.setViewName("404");
@@ -79,6 +91,8 @@ public class PropertyController {
 		ModelAndView mv = new ModelAndView();
 		Map<String, String> search = new HashMap<String, String>();
 
+		// pass role
+		mv = setRole(mv);
 		mv.addObject("properties", propertyService.getFilteredProperties(filterPropertyRequest));
 
 		List<SaleType> saleTypes = saleTyperService.getAllSaleType();
@@ -120,6 +134,10 @@ public class PropertyController {
 	public ModelAndView create(@RequestPart("files") MultipartFile[] files,
 			@ModelAttribute("createProperty") CreatePropertyRequest request) {
 		var mv = new ModelAndView();
+
+		// pass role
+		mv = setRole(mv);
+
 		var images = new ArrayList<String>();
 		StringBuilder fileNames = new StringBuilder();
 		int counter = 0;
@@ -140,13 +158,11 @@ public class PropertyController {
 		request.setImages(images);
 		Property result;
 		try {
-			result = propertyService.createProperty(request,authService.Jwt);
-			if (result!=null)
-			{
-				mv.addObject(mv.addObject("property", result));
-				mv.setViewName("redirect:/property/"+result.getId());
-			}
-			else {
+			result = propertyService.createProperty(request, authService.Jwt);
+			if (result != null) {
+				mv.addObject("property", result);
+				mv.setViewName("redirect:/property/" + result.getId());
+			} else {
 				mv.addObject("result", "Error posting addvertisment");
 				mv.setViewName("404");// set back page
 			}
@@ -154,29 +170,80 @@ public class PropertyController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
-		
+
 		return mv;
 	}
 
 	@GetMapping("/create")
 	public ModelAndView create() {
-		System.out.println("hit****");
 		var mv = new ModelAndView();
-		if(authService.Jwt!=null)
-		{
-			int userId =  (int) authService.parser(authService.Jwt).get("id");
-			 
+
+		// pass role
+		mv = setRole(mv);
+
+		if (authService.Jwt != null) {
+			int userId = (int) authService.parser(authService.Jwt).get("id");
+
 			mv.setViewName("create-property");
 			mv.addObject("createProperty", new CreatePropertyRequest());
 			mv.addObject("saleTypes", saleTyperService.getAllSaleType());
 			mv.addObject("propertyTypes", propertyTypeService.getAllPropertyType());
 			mv.addObject("locations", locationService.getAllLocation());
-			mv.addObject("properties", propertyService.getUserProperties((long)userId,authService.Jwt));
+			mv.addObject("properties", propertyService.getUserProperties((long) userId, authService.Jwt));
 			mv.addObject("user", userId); // pass the user id
+		} else
+			mv.setViewName("redirect:/login");
+		return mv;
+	}
+
+	@PostMapping("/filter-pending")
+	public ModelAndView filterPendingProperty(@ModelAttribute FilterPropertyRequest filterPropertyRequest) {
+
+		ModelAndView mv = new ModelAndView();
+		Map<String, String> search = new HashMap<String, String>();
+
+		// pass role
+		mv = setRole(mv);
+		try {
+			mv.addObject("properties",
+					propertyService.getFilteredPendingProperties(filterPropertyRequest, authService.Jwt));
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+
+		List<SaleType> saleTypes = saleTyperService.getAllSaleType();
+		mv.addObject("saleTypes", saleTypes);
+
+		List<PropertyType> propertyTypes = propertyTypeService.getAllPropertyType();
+		mv.addObject("propertyTypes", propertyTypes);
+
+		List<Location> locations = locationService.getAllLocation();
+		mv.addObject("locations", locations);
+
+		if (filterPropertyRequest.getSaleType() == 0)
+			search.put("searchSaleType", "All");
 		else
-		mv.setViewName("redirect:/login");
+			search.put("searchSaleType", saleTypes.stream()
+					.filter(type -> filterPropertyRequest.getSaleType() == type.getId()).findFirst().get().getType());
+
+		if (filterPropertyRequest.getPropertyType() == 0)
+			search.put("searchPropertyType", "All");
+		else
+			search.put("searchPropertyType",
+					propertyTypes.stream().filter(type -> filterPropertyRequest.getPropertyType() == type.getId())
+							.findFirst().get().getType());
+		if (filterPropertyRequest.getLocation() == 0)
+			search.put("searchLocation", "All");
+		else
+			search.put("searchLocation",
+					locations.stream().filter(type -> filterPropertyRequest.getLocation() == type.getId()).findFirst()
+							.get().getLocation());
+
+		mv.addObject("filterPropertyRequest", new FilterPropertyRequest());
+		mv.addAllObjects(search);
+		mv.setViewName("filter-pending");
+
 		return mv;
 	}
 	

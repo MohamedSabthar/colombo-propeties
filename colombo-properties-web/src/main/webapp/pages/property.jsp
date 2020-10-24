@@ -22,10 +22,10 @@
 
 	<!-- Brand -->
 
-		<jsp:include page="../partials/header.jsp">
-		<jsp:param name="type" value="authors" />
+	<jsp:include page="../partials/header.jsp">
+		<jsp:param name="type" value="all" />
 	</jsp:include>
-	
+
 	<!--- Cards -->
 	<c:if test="${not empty property}">
 		<div class="container rounded-lg border-0 "
@@ -127,10 +127,20 @@
 
 								<div id="collapseOne" class="collapse show"
 									aria-labelledby="headingOne" data-parent="#accordion">
-									<div class="card-body">${property.description}</div>
+									<div class="card-body ">
+										${property.description}
+										<ul class="list-unstyled mt-3">
+											<li><strong>Land Size : </strong> ${property.landSize}</li>
+											<li><strong>Property Size : </strong>
+												${property.propertySize}</li>
+											<li><strong>Address : </strong>${property.address}</li>
+
+										</ul>
+
+									</div>
 								</div>
 							</div>
-						 <div class="card">
+							<div class="card">
 								<div class="card-header bg-white" id="headingTwo">
 									<h5 class="mb-0">
 										<button class="btn btn-link" data-toggle="collapse"
@@ -144,17 +154,24 @@
 								</div>
 								<div id="collapseTwo" class="collapse"
 									aria-labelledby="headingTwo" data-parent="#accordion">
-									<div class="card-body col-md-6 col-sm-6"
-										style="padding-left: 5%;">
-										
+
+									<div id="collapseOne" class="collapse show"
+										aria-labelledby="headingOne" data-parent="#accordion">
+										<div class="card-body">
+
+											<ul class="list-unstyled mt-3">
+												<li><strong>Location : </strong>
+													${property.location.location}</li>
+												<li><strong>Address : </strong> ${property.address}</li>
+
+											</ul>
+
+
+										</div>
 									</div>
-	<div id="collapseOne" class="collapse show"
-									aria-labelledby="headingOne" data-parent="#accordion">
-									<div class="card-body">${property.address}</div>
-								</div>
 
 								</div>
-							</div> 
+							</div>
 
 						</div>
 
@@ -236,11 +253,11 @@
 
 			</div>
 		</div>
-		
+
 	</c:if>
 	<jsp:include page="../partials/footer.jsp">
-    <jsp:param name="type" value="all"/>
-</jsp:include>
-	
+		<jsp:param name="type" value="all" />
+	</jsp:include>
+
 </body>
 </html>

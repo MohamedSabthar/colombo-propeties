@@ -142,5 +142,13 @@ public class PropertyController {
 	
 	
 	
+	@PostMapping("/filter-pending")
+	public Response filterPendingProperty(@RequestBody FilterPropertyRequest request) {
+		System.out.println(request);
+		List<Property> properties = propertyService.filterPendingProperty(request);
+		Response response = new Response("test", 200, properties);
+		System.out.println(properties);
+		return response;
+	}
 
 }

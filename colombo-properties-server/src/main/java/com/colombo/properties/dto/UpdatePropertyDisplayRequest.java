@@ -1,8 +1,8 @@
 package com.colombo.properties.dto;
 
 public class UpdatePropertyDisplayRequest {
-	
-	private Long id;	//if of the property
+
+	private Long id; // if of the property
 	private Boolean display; // new display status
 
 	@Override

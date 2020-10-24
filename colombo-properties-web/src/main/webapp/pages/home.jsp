@@ -21,9 +21,10 @@
 </head>
 
 <body style="background-color: #f2f2f2;">
-		<jsp:include page="../partials/header.jsp">
+	<jsp:include page="../partials/header.jsp">
 		<jsp:param name="type" value="all" />
 	</jsp:include>
+
 	<div class="container rounded-lg border-0 "
 		style="margin-top: 2%; margin-bottom: 5%; border: 1px solid; padding: 2%; background-color: white;">
 		<div class="search-result">
@@ -59,10 +60,10 @@
 												</h3>
 											</div>
 											<ul class="list-unstyled">
-												<li><i class="fas fa-bed"></i> : 3 &emsp; <i
-													class="fas fa-bath"> </i> : 2</li>
-												<li><strong>Perches : </strong> 12.8</li>
-												<li>No 08, Jawatta Road ,Colombo 07</li>
+												
+												<li><strong>Land Size : </strong> ${property.landSize}</li>
+												<li><strong>Property Size : </strong> ${property.propertySize}</li>
+												<li><strong>Address : </strong>${property.address}</li>
 												<!-- <div>
 									<a href="#" class=" btn btn-primary stretched-link float-left">View Property</a>
 								</div> -->
@@ -143,13 +144,13 @@
 
 		</div>
 	</div>
-	</div>
+
 
 
 
 	<jsp:include page="../partials/footer.jsp">
-    <jsp:param name="type" value="all"/>
-</jsp:include>
+		<jsp:param name="type" value="all" />
+	</jsp:include>
 </body>
 
 </html>
