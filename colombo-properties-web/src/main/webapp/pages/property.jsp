@@ -228,7 +228,14 @@
 								<div class="card card-body">${property.user.email}</div>
 							</div>
 							<br>
-							<%-- 	<button class="btn btn-primary btn-lg btn-block" type="button"
+							
+							<div>
+							<a class="btn btn-warning" href="/property/update/${property.id}">Update Property</a>
+							</div>
+							<div>
+							<a class="btn btn-danger" href="/property/delete/${property.id}">Delete Property</a>
+							</div>
+						<%-- 	<button class="btn btn-primary btn-lg btn-block" type="button"
 								data-toggle="collapse" data-target="#collapseExample3"
 								aria-expanded="false" aria-controls="collapseExample3">
 								Address</button>

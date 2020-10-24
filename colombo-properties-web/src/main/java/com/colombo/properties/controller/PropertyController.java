@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.colombo.properties.dto.CreatePropertyRequest;
 import com.colombo.properties.dto.FilterPropertyRequest;
+import com.colombo.properties.dto.UpdatePropertyRequest;
 import com.colombo.properties.model.Location;
 import com.colombo.properties.model.Property;
 import com.colombo.properties.model.PropertyType;
@@ -242,6 +244,61 @@ public class PropertyController {
 		mv.addAllObjects(search);
 		mv.setViewName("filter-pending");
 
+		return mv;
+	}
+	
+	//faiz
+	@GetMapping("/update/{id}")
+	public ModelAndView update(@PathVariable Long id) {
+		
+		var mv = new ModelAndView();
+		if(authService.Jwt!=null)
+		{
+			int userId =  (int) authService.parser(authService.Jwt).get("id");
+			UpdatePropertyRequest request;
+			try {
+				request = new UpdatePropertyRequest(propertyService.getProperty(id));
+				
+				mv.setViewName("update-property");
+				mv.addObject("createProperty",request);
+				mv.addObject("saleTypes", saleTyperService.getAllSaleType());
+				mv.addObject("propertyTypes", propertyTypeService.getAllPropertyType());
+				mv.addObject("locations", locationService.getAllLocation());
+				mv.addObject("properties", propertyService.getUserProperties((long)userId,authService.Jwt));
+				mv.addObject("user", userId); // pass the user id
+				mv.addObject("id",id);
+			} catch (PageNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		else
+		mv.setViewName("redirect:/login");
+		return mv;
+	}
+	
+	@PostMapping("/update/{id}")
+	public ModelAndView update(@ModelAttribute("createProperty") UpdatePropertyRequest request, @PathVariable Long id) {
+		
+		var mv = new ModelAndView();
+		Property result;
+		try {
+			result = propertyService.updateProperty(request,authService.Jwt, id);
+			if (result!=null)
+			{
+				mv.addObject("property", result);
+				mv.setViewName("redirect:/property/"+result.getId());
+			}
+			else {
+				mv.addObject("result", "Error posting addvertisment");
+				mv.setViewName("404");// set back page
+			}
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
 		return mv;
 	}
 

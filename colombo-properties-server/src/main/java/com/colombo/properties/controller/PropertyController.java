@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,10 +12,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.colombo.properties.dao.PropertyRepository;
 import com.colombo.properties.dto.CreatePropertyRequest;
 import com.colombo.properties.dto.FilterPropertyRequest;
 import com.colombo.properties.dto.Response;
 import com.colombo.properties.dto.UpdatePropertyDisplayRequest;
+import com.colombo.properties.dto.UpdatePropertyRequest;
 import com.colombo.properties.model.Property;
 //import com.colombo.properties.dto.UpdatePropertyDisplayRequest;
 import com.colombo.properties.service.PropertyService;
@@ -25,6 +29,7 @@ public class PropertyController {
 
 	@Autowired
 	private PropertyService propertyService;
+	PropertyRepository propertyRepository;
 
 	@PostMapping("/create")
 	public Response createProperty(@RequestBody CreatePropertyRequest request) {
@@ -109,6 +114,33 @@ public class PropertyController {
 
 		return response;
 	}
+	
+	@DeleteMapping("/delete/{id}")
+	public String deleteProperty(@PathVariable long id) {
+		
+		propertyRepository.deleteById(id);
+		
+		return "Property Deleted";
+	}
+	
+	@PutMapping("/update/{id}")
+	public Response updateProperty(@PathVariable Long id, @RequestBody UpdatePropertyRequest request ) {
+		
+		Response response = null;
+		
+		try {
+			Property property = propertyService.updateProperty(request);
+			System.out.println(request.getTitle());
+			response = new Response("Property updated successfully", 200, property);
+		} catch (NoSuchElementException e) {
+			response = new Response("Could not update property", 400, null);
+		}
+		
+		return response;
+	}
+	
+	
+	
 	
 	@PostMapping("/filter-pending")
 	public Response filterPendingProperty(@RequestBody FilterPropertyRequest request) {

@@ -23,24 +23,23 @@
 
 		<label for="inputEmail" class="sr-only">Email address</label>
 		<form:input type="email" id="inputEmail" class="form-control m-1"
-			path="email" placeholder=" Email address"   />
-
+			path="email" placeholder=" Email address" />
 		<label for="inputName" class="sr-only">Username</label>
 		<form:input type="text" id="inputName" class="form-control m-1"
-			path="username" placeholder="Name"  />
+			path="username" placeholder="Name" />
 
 		<label for="inputPhone" class="sr-only">Phone number</label>
 		<form:input type="text" id="inputPhone" class="form-control m-1"
-			placeholder="Phone number"  path="phone" />
+			placeholder="Phone number" path="phone" />
 
 
 		<label for="inputPassword" class="sr-only">Password</label>
-		<form:input type="password" id="inputPassword" class="form-control m-1"
-			placeholder="password"  path="password" />
+		<form:input type="password" id="inputPassword"
+			class="form-control m-1" placeholder="password" path="password" />
 
 		<label for="inputPassword" class="sr-only">Confirm Password</label>
 		<input type="password" id="inputPassword" class="form-control m-1"
-			placeholder="Confirm Password" >
+			placeholder="Confirm Password">
 
 
 		<div class="mb-3">

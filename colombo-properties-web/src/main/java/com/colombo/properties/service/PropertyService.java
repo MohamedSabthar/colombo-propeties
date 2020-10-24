@@ -1,5 +1,6 @@
 package com.colombo.properties.service;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import com.colombo.properties.dto.CreatePropertyRequest;
 import com.colombo.properties.dto.FilterPropertyRequest;
 import com.colombo.properties.dto.PropertiesResponse;
 import com.colombo.properties.dto.PropertyResponse;
+import com.colombo.properties.dto.UpdatePropertyRequest;
 import com.colombo.properties.dto.UpdatePropertyDisplayRequest;
 import com.colombo.properties.model.Property;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -125,7 +127,29 @@ public class PropertyService {
 		}
 		return properties;
 	}
+	
+	//faiz
+	public Property updateProperty(UpdatePropertyRequest request,String jwt, Long id) throws JsonProcessingException {
 
+		try {
+			
+			String req = new ObjectMapper().writeValueAsString(request);
+			HttpEntity<String> jwtReq = prepareWithJwt(jwt,req);
+			
+			ResponseEntity<PropertyResponse> propertiesResponse =
+					restTemplate.exchange(serverBaseUrl + "property/update/"  + id, HttpMethod.PUT, jwtReq,
+							PropertyResponse.class);
+			
+			if (// propertiesResponse.getStatus() == 201
+			propertiesResponse.getStatusCode().equals(HttpStatus.OK))
+//				return propertiesResponse.getResult();
+				System.out.println("htter : " + propertiesResponse.getBody().getResult());
+			return propertiesResponse.getBody().getResult();
+		} catch (ClassCastException e) {
+			System.out.println(e.getStackTrace());
+		}
+		return null;
+	}
 	public List<Property> getPendingProperties(String jwt) {
 
 		List<Property> properties = null;

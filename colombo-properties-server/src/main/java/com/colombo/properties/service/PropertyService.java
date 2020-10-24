@@ -11,6 +11,7 @@ import com.colombo.properties.dao.PropertyRepository;
 import com.colombo.properties.dto.CreatePropertyRequest;
 import com.colombo.properties.dto.FilterPropertyRequest;
 import com.colombo.properties.dto.UpdatePropertyDisplayRequest;
+import com.colombo.properties.dto.UpdatePropertyRequest;
 import com.colombo.properties.model.Image;
 //import com.colombo.properties.dto.CreatePropertyRequest;
 //import com.colombo.properties.dto.UpdatePropertyDisplayRequest;
@@ -83,6 +84,24 @@ public class PropertyService {
 
 	public List<Property> getUserProperties(Long userId) {
 		return propertyRepository.findByUserId(userId);
+	}
+	
+	public Property updateProperty(UpdatePropertyRequest property) {
+		
+		Property result = propertyRepository.findById(property.getId()).get();
+		result.setId(property.getId());
+		result.setTitle(property.getTitle());
+		result.setDescription(property.getDescription());
+		result.setAddress(property.getAddress());
+		result.setLandSize(property.getLandSize());
+		result.setPropertySize(property.getPropertySize());
+		result.setPrice(property.getPrice());
+		result.setPropertyType(property.getPropertyType());
+		result.setLocation(property.getLocation());
+		result.setSaleType(property.getSaleType());
+		result = propertyRepository.save(result);
+		
+		return result;
 	}
 
 	public List<Property> filterPendingProperty(FilterPropertyRequest request) {
