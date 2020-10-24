@@ -1,6 +1,5 @@
 package com.colombo.properties.service;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,7 @@ import com.colombo.properties.dto.CreatePropertyRequest;
 import com.colombo.properties.dto.FilterPropertyRequest;
 import com.colombo.properties.dto.PropertiesResponse;
 import com.colombo.properties.dto.PropertyResponse;
+import com.colombo.properties.dto.Response;
 import com.colombo.properties.dto.UpdatePropertyRequest;
 import com.colombo.properties.dto.UpdatePropertyDisplayRequest;
 import com.colombo.properties.model.Property;
@@ -127,19 +127,18 @@ public class PropertyService {
 		}
 		return properties;
 	}
-	
-	//faiz
-	public Property updateProperty(UpdatePropertyRequest request,String jwt, Long id) throws JsonProcessingException {
+
+	// faiz
+	public Property updateProperty(UpdatePropertyRequest request, String jwt, Long id) throws JsonProcessingException {
 
 		try {
-			
+
 			String req = new ObjectMapper().writeValueAsString(request);
-			HttpEntity<String> jwtReq = prepareWithJwt(jwt,req);
-			
-			ResponseEntity<PropertyResponse> propertiesResponse =
-					restTemplate.exchange(serverBaseUrl + "property/update/"  + id, HttpMethod.PUT, jwtReq,
-							PropertyResponse.class);
-			
+			HttpEntity<String> jwtReq = prepareWithJwt(jwt, req);
+
+			ResponseEntity<PropertyResponse> propertiesResponse = restTemplate
+					.exchange(serverBaseUrl + "property/update/" + id, HttpMethod.PUT, jwtReq, PropertyResponse.class);
+
 			if (// propertiesResponse.getStatus() == 201
 			propertiesResponse.getStatusCode().equals(HttpStatus.OK))
 //				return propertiesResponse.getResult();
@@ -150,6 +149,7 @@ public class PropertyService {
 		}
 		return null;
 	}
+
 	public List<Property> getPendingProperties(String jwt) {
 
 		List<Property> properties = null;
@@ -192,13 +192,13 @@ public class PropertyService {
 		return properties;
 	}
 
-	public List<Property> updateDisplay(String jwt,Long id) throws JsonProcessingException {
+	public List<Property> updateDisplay(String jwt, Long id) throws JsonProcessingException {
 
 		List<Property> properties = null;
 
 		try {
-			String req = new ObjectMapper().writeValueAsString(new UpdatePropertyDisplayRequest(id,true));
-		
+			String req = new ObjectMapper().writeValueAsString(new UpdatePropertyDisplayRequest(id, true));
+
 			HttpEntity<String> jwtReq = prepareWithJwt(jwt, req);
 
 			ResponseEntity<PropertiesResponse> propertiesResponse = restTemplate.exchange(
@@ -212,6 +212,25 @@ public class PropertyService {
 			System.out.println(e.getStackTrace());
 		}
 		return properties;
+	}
+
+	public boolean delete(Long id, String jwt) {
+
+		try {
+
+			HttpEntity<String> jwtReq = prepareWithJwt(jwt, null);
+
+			ResponseEntity<Response> response = restTemplate.exchange(serverBaseUrl + "property/delete/" + id,
+					HttpMethod.DELETE, jwtReq, Response.class);
+			if (// propertiesResponse.getStatus() == 201
+			response.getStatusCode().equals(HttpStatus.ACCEPTED))
+//				return propertiesResponse.getResult();
+				return true;
+		} catch (ClassCastException e) {
+			System.out.println(e.getStackTrace());
+		}
+
+		return false;
 	}
 
 }

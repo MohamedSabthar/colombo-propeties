@@ -246,51 +246,51 @@ public class PropertyController {
 
 		return mv;
 	}
-	
-	//faiz
+
+	// faiz
 	@GetMapping("/update/{id}")
 	public ModelAndView update(@PathVariable Long id) {
-		
+
 		var mv = new ModelAndView();
-		if(authService.Jwt!=null)
-		{
-			int userId =  (int) authService.parser(authService.Jwt).get("id");
+		if (authService.Jwt != null) {
+			// pass role
+			mv = setRole(mv);
+			int userId = (int) authService.parser(authService.Jwt).get("id");
 			UpdatePropertyRequest request;
 			try {
 				request = new UpdatePropertyRequest(propertyService.getProperty(id));
-				
+
 				mv.setViewName("update-property");
-				mv.addObject("createProperty",request);
+				mv.addObject("createProperty", request);
 				mv.addObject("saleTypes", saleTyperService.getAllSaleType());
 				mv.addObject("propertyTypes", propertyTypeService.getAllPropertyType());
 				mv.addObject("locations", locationService.getAllLocation());
-				mv.addObject("properties", propertyService.getUserProperties((long)userId,authService.Jwt));
+				mv.addObject("properties", propertyService.getUserProperties((long) userId, authService.Jwt));
 				mv.addObject("user", userId); // pass the user id
-				mv.addObject("id",id);
+				mv.addObject("id", id);
 			} catch (PageNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-		}
-		else
-		mv.setViewName("redirect:/login");
+
+		} else
+			mv.setViewName("redirect:/login");
 		return mv;
 	}
-	
+
 	@PostMapping("/update/{id}")
 	public ModelAndView update(@ModelAttribute("createProperty") UpdatePropertyRequest request, @PathVariable Long id) {
-		
+
 		var mv = new ModelAndView();
+		// pass role
+		mv = setRole(mv);
 		Property result;
 		try {
-			result = propertyService.updateProperty(request,authService.Jwt, id);
-			if (result!=null)
-			{
+			result = propertyService.updateProperty(request, authService.Jwt, id);
+			if (result != null) {
 				mv.addObject("property", result);
-				mv.setViewName("redirect:/property/"+result.getId());
-			}
-			else {
+				mv.setViewName("redirect:/property/" + result.getId());
+			} else {
 				mv.addObject("result", "Error posting addvertisment");
 				mv.setViewName("404");// set back page
 			}
@@ -298,7 +298,22 @@ public class PropertyController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
+
+		return mv;
+	}
+
+	@GetMapping("/delete/{id}")
+	public ModelAndView delete(@PathVariable Long id) {
+		
+		var mv = new ModelAndView();
+		// pass role
+		mv = setRole(mv);
+		if (authService.Jwt != null) {
+			propertyService.delete(id, authService.Jwt);
+			mv.setViewName("add-success");
+		} else
+			mv.setViewName("redirect:/login");
+
 		return mv;
 	}
 

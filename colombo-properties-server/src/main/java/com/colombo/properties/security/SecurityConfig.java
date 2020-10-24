@@ -47,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable().authorizeRequests()
 				.antMatchers("/auth/login", "/location/all", "/property/display-accepted-only",
 						"/property/display-property/{id}", "/property/filter", "/property-type/all", "/sale-type/all",
-						"/contact/create", "/property/update/{id}", "/property/delete/{id}", "/user/register")
+						"/contact/create", "/property/update/{id}", "/property/delete/{id}", "/user/register","/property/delete/{id}")
 				.permitAll().anyRequest().authenticated().and().exceptionHandling().and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

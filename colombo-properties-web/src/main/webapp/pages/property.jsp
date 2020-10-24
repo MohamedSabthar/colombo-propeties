@@ -228,14 +228,25 @@
 								<div class="card card-body">${property.user.email}</div>
 							</div>
 							<br>
-							
-							<div>
-							<a class="btn btn-warning" href="/property/update/${property.id}">Update Property</a>
-							</div>
-							<div>
-							<a class="btn btn-danger" href="/property/delete/${property.id}">Delete Property</a>
-							</div>
-						<%-- 	<button class="btn btn-primary btn-lg btn-block" type="button"
+							<c:choose>
+								<c:when test="${role == 'admin'}">
+									<div>
+										<a class="btn btn-warning btn-lg btn-block mb-2"
+											href="/property/update/${property.id}">Update Property</a>
+									</div>
+									<div>
+										<a class="btn btn-danger btn-lg btn-block" onclick="return confirm('Are you sure you need to delete?')"
+											href="/property/delete/${property.id}">Delete Property</a>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<a></a>
+
+								</c:otherwise>
+							</c:choose>
+
+
+							<%-- 	<button class="btn btn-primary btn-lg btn-block" type="button"
 								data-toggle="collapse" data-target="#collapseExample3"
 								aria-expanded="false" aria-controls="collapseExample3">
 								Address</button>

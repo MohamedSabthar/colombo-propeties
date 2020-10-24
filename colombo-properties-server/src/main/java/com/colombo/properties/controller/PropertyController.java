@@ -29,6 +29,7 @@ public class PropertyController {
 
 	@Autowired
 	private PropertyService propertyService;
+	@Autowired
 	PropertyRepository propertyRepository;
 
 	@PostMapping("/create")
@@ -114,20 +115,20 @@ public class PropertyController {
 
 		return response;
 	}
-	
+
 	@DeleteMapping("/delete/{id}")
-	public String deleteProperty(@PathVariable long id) {
-		
+	public Response deleteProperty(@PathVariable long id) {
+
 		propertyRepository.deleteById(id);
-		
-		return "Property Deleted";
+
+		return new Response("property delete", 200, null);
 	}
-	
+
 	@PutMapping("/update/{id}")
-	public Response updateProperty(@PathVariable Long id, @RequestBody UpdatePropertyRequest request ) {
-		
+	public Response updateProperty(@PathVariable Long id, @RequestBody UpdatePropertyRequest request) {
+
 		Response response = null;
-		
+
 		try {
 			Property property = propertyService.updateProperty(request);
 			System.out.println(request.getTitle());
@@ -135,13 +136,10 @@ public class PropertyController {
 		} catch (NoSuchElementException e) {
 			response = new Response("Could not update property", 400, null);
 		}
-		
+
 		return response;
 	}
-	
-	
-	
-	
+
 	@PostMapping("/filter-pending")
 	public Response filterPendingProperty(@RequestBody FilterPropertyRequest request) {
 		System.out.println(request);

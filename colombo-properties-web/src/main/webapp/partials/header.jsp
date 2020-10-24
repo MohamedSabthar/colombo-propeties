@@ -5,7 +5,7 @@
 
 <header role="banner">
 	<div class="container-fluid bg-white">
-		<img src="../img/Screenshot (297).png" width="700">
+		<img src="http://localhost:9090/img/Screenshot (297).png" width="700">
 	</div>
 
 
@@ -66,7 +66,7 @@
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false"> <img src="../img/avatar-5.jpg"
+							aria-expanded="false"> <img src="http://localhost:9090/img/avatar-5.jpg"
 								class="rounded-circle z-depth-0" alt="avatar image" height="50">
 						</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
