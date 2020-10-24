@@ -24,6 +24,7 @@
 		<jsp:include page="../partials/header.jsp">
 		<jsp:param name="type" value="all" />
 	</jsp:include>
+	
 	<div class="container rounded-lg border-0 "
 		style="margin-top: 2%; margin-bottom: 5%; border: 1px solid; padding: 2%; background-color: white;">
 		<div class="search-result">
@@ -143,7 +144,7 @@
 
 		</div>
 	</div>
-	</div>
+	
 
 
 

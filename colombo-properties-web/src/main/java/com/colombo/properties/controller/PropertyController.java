@@ -52,6 +52,15 @@ public class PropertyController {
 
 	public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/webapp/uploads";
 
+	private ModelAndView setRole(ModelAndView mv) {
+		// pass role
+		if (authService.Jwt != null)
+			mv.addObject("role", authService.parser(authService.Jwt).get("role"));
+		else
+			mv.addObject("role", null);
+		return mv;
+	}
+	
 	@GetMapping()
 	public String home() {
 		return "redirect:/";
@@ -63,6 +72,8 @@ public class PropertyController {
 		ModelAndView mv = new ModelAndView();
 		try {
 			mv.addObject("property", propertyService.getProperty(id));
+			// pass role
+			mv = setRole(mv);
 			mv.setViewName("property");
 		} catch (PageNotFoundException e) {
 			mv.setViewName("404");
@@ -76,7 +87,9 @@ public class PropertyController {
 
 		ModelAndView mv = new ModelAndView();
 		Map<String, String> search = new HashMap<String, String>();
-
+		
+		// pass role
+		mv = setRole(mv);
 		mv.addObject("properties", propertyService.getFilteredProperties(filterPropertyRequest));
 
 		List<SaleType> saleTypes = saleTyperService.getAllSaleType();
@@ -118,6 +131,11 @@ public class PropertyController {
 	public ModelAndView create(@RequestPart("files") MultipartFile[] files,
 			@ModelAttribute("createProperty") CreatePropertyRequest request) {
 		var mv = new ModelAndView();
+		
+		// pass role
+		mv = setRole(mv);
+				
+				
 		var images = new ArrayList<String>();
 		StringBuilder fileNames = new StringBuilder();
 		int counter = 0;
@@ -138,13 +156,11 @@ public class PropertyController {
 		request.setImages(images);
 		Property result;
 		try {
-			result = propertyService.createProperty(request,authService.Jwt);
-			if (result!=null)
-			{
-			mv.addObject("property", result);
-				mv.setViewName("redirect:/property/"+result.getId());
-			}
-			else {
+			result = propertyService.createProperty(request, authService.Jwt);
+			if (result != null) {
+				mv.addObject("property", result);
+				mv.setViewName("redirect:/property/" + result.getId());
+			} else {
 				mv.addObject("result", "Error posting addvertisment");
 				mv.setViewName("404");// set back page
 			}
@@ -152,8 +168,7 @@ public class PropertyController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
-		
+
 		return mv;
 	}
 
@@ -161,20 +176,23 @@ public class PropertyController {
 	public ModelAndView create() {
 		System.out.println("hit****");
 		var mv = new ModelAndView();
-		if(authService.Jwt!=null)
-		{
-			int userId =  (int) authService.parser(authService.Jwt).get("id");
-			 
+		
+		// pass role
+		mv = setRole(mv);
+				
+				
+		if (authService.Jwt != null) {
+			int userId = (int) authService.parser(authService.Jwt).get("id");
+
 			mv.setViewName("create-property");
 			mv.addObject("createProperty", new CreatePropertyRequest());
 			mv.addObject("saleTypes", saleTyperService.getAllSaleType());
 			mv.addObject("propertyTypes", propertyTypeService.getAllPropertyType());
 			mv.addObject("locations", locationService.getAllLocation());
-			mv.addObject("properties", propertyService.getUserProperties((long)userId,authService.Jwt));
+			mv.addObject("properties", propertyService.getUserProperties((long) userId, authService.Jwt));
 			mv.addObject("user", userId); // pass the user id
-		}
-		else
-		mv.setViewName("redirect:/login");
+		} else
+			mv.setViewName("redirect:/login");
 		return mv;
 	}
 

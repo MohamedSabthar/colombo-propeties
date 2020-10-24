@@ -23,7 +23,7 @@
 	<!-- Brand -->
 
 		<jsp:include page="../partials/header.jsp">
-		<jsp:param name="type" value="authors" />
+		<jsp:param name="type" value="all" />
 	</jsp:include>
 	
 	<!--- Cards -->

@@ -32,15 +32,27 @@ public class HomeController {
 	ContactService contactService;
 	@Autowired
 	AuthService authService;
+	
+	private ModelAndView setRole(ModelAndView mv) {
+		// pass role
+		if (authService.Jwt != null)
+			mv.addObject("role", authService.parser(authService.Jwt).get("role"));
+		else
+			mv.addObject("role", null);
+		return mv;
+	}
 
 	@GetMapping("/")
 	public ModelAndView home() {
 		ModelAndView mv = new ModelAndView();
+		// pass role
+				mv = setRole(mv);
 		mv.addObject("properties", propertyService.getAcceptedProperties());
 		mv.addObject("saleTypes", saleTyperService.getAllSaleType());
 		mv.addObject("propertyTypes", propertyTypeService.getAllPropertyType());
 		mv.addObject("locations", locationService.getAllLocation());
 		mv.addObject("filterPropertyRequest", new FilterPropertyRequest());
+	
 		mv.setViewName("home");
 		System.out.println(propertyTypeService.getAllPropertyType());
 		return mv;
@@ -50,6 +62,8 @@ public class HomeController {
 	public ModelAndView contact() {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("createContact", new ContactUsRequest());
+		// pass role
+		mv = setRole(mv);
 		mv.setViewName("contact");
 		return mv;
 	}
@@ -63,6 +77,9 @@ public class HomeController {
 			e.printStackTrace();
 		}
 		ModelAndView mv = new ModelAndView();
+		// pass role
+		mv = setRole(mv);
+		mv.setViewName("contact");
 		mv.setViewName("add-success");
 		return mv;
 	}
@@ -70,11 +87,16 @@ public class HomeController {
 	@GetMapping("/contact-record")
 	public ModelAndView contactRecord() {
 		ModelAndView mv = new ModelAndView();
+		// pass role
+		mv = setRole(mv);
 		if (authService.Jwt != null) {
 			mv.addObject("records", contactService.getAllContactRecords(authService.Jwt));
+		
 			mv.setViewName("contacts-records");
-		} else
+		} else {
 			mv.setViewName("redirect:/login");
+			
+		}
 		return mv;
 	}
 

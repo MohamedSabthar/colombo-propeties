@@ -39,8 +39,8 @@ public class AuthController {
 		authService.Jwt = token;
 //		System.out.println("%%%hit");
 		System.out.println(token);
-		if (authService.Jwt != null)
-			mv.setViewName("redirect:/property/create");
+		if (authService.Jwt != null) {
+			mv.setViewName("redirect:/property/create");}
 		else
 			mv.setViewName("redirect:/login");
 		return mv;
@@ -49,6 +49,7 @@ public class AuthController {
 	@GetMapping("/logout")
 	public ModelAndView logout() {
 		ModelAndView mv = new ModelAndView();
+		authService.Jwt = null;
 		mv.setViewName("redirect:/login");
 		return mv;
 	}
