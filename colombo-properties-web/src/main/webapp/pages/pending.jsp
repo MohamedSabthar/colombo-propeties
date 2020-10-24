@@ -70,7 +70,7 @@
 								</div> -->
 											</ul>
 											<div class="price " style="text-align: right;">
-											<a class="btn btn-primary" href="/update-display/${property.id}">Accept</a>
+											<a class="btn btn-primary" href="/update-display/${property.id}" onclick="return confirm('Are you sure\n you need to display this add in main page?');">Accept</a>
 												<h2>
 													<fmt:formatNumber value="${property.price}" type="currency"
 														currencyCode="LKR" />

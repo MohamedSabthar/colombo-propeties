@@ -91,7 +91,7 @@
 			<div class="col-1"></div>
 			<div class="col-4">
 				<h4>Create a new advertisements</h4>
-				<form:form method="post" action="/property/create"
+				<form:form method="post" action="/property/create" onsubmit="return confirm('Are you sure\n are thes details are correct?');"
 					modelAttribute="createProperty" ENCTYPE="multipart/form-data">
 
 
@@ -183,20 +183,7 @@
 						</form:select>
 					</div>
 
-
-
-
-
 					<form:input path="user" value="${user}" type="hidden" />
-
-
-
-
-
-
-
-
-
 
 					<div class="form-group">
 						<label for="inputState" class="font-weight-bold"> Upload
@@ -206,7 +193,7 @@
 
 
 
-					<input type="submit" value="create"
+					<input type="submit" value="create" 
 						class="btn btn-warning btn-lg btn-block" />
 				</form:form>
 			</div>

@@ -139,8 +139,9 @@
 						</form:select>
 					</div>
 
-					<input type="submit" value="Search"
+					<input type="submit" value="Search" 
 						class="btn btn-warning btn-lg btn-block" />
+						
 				</form:form>
 			</div>
 

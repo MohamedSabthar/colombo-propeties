@@ -40,7 +40,7 @@
 
 					<!--Grid column-->
 					<div class="col">
-						<form:form method="post" action="/contact"
+						<form:form method="post" action="/contact" onsubmit="return confirm('Are you sure\n are these details are valid?');"
 							modelAttribute="createContact">
 
 
@@ -62,7 +62,7 @@
 								<div class="col-md-6">
 									<div class="md-form mb-0">
 										<label for="email" class="">Your email</label>
-										<form:input path="email" type="text" id="email" name="email"
+										<form:input path="email" type="email" id="email" name="email"
 											class="form-control" />
 
 									</div>
