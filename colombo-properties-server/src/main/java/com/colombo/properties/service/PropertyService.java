@@ -85,4 +85,27 @@ public class PropertyService {
 		return propertyRepository.findByUserId(userId);
 	}
 
+	public List<Property> filterPendingProperty(FilterPropertyRequest request) {
+		if (request.getLocation() == 0 && request.getPropertyType() == 0 && request.getLocation() == 0)
+			return propertyRepository.findByDisplay(false);
+		if (request.getLocation() == 0 && request.getPropertyType() == 0)
+			return propertyRepository.findBySaleTypeIdAndDisplay(request.getSaleType(), false);
+		if (request.getLocation() == 0 && request.getSaleType() == 0)
+			return propertyRepository.findByPropertyTypeIdAndDisplay(request.getPropertyType(), false);
+		if (request.getPropertyType() == 0 && request.getSaleType() == 0)
+			return propertyRepository.findByLocationIdAndDisplay(request.getLocation(), false);
+		if (request.getPropertyType() == 0)
+			return propertyRepository.findBySaleTypeIdAndLocationIdAndDisplay(request.getSaleType(),
+					request.getLocation(), false);
+		if (request.getLocation() == 0)
+			return propertyRepository.findByPropertyTypeIdAndSaleTypeIdAndDisplay(request.getPropertyType(),
+					request.getSaleType(), false);
+		if (request.getSaleType() == 0)
+			return propertyRepository.findByPropertyTypeIdAndLocationIdAndDisplay(request.getPropertyType(),
+					request.getLocation(), false);
+		return propertyRepository.findByPropertyTypeIdAndSaleTypeIdAndLocationIdAndDisplay(request.getPropertyType(),
+				request.getSaleType(), request.getLocation(), false);
+
+	}
+
 }

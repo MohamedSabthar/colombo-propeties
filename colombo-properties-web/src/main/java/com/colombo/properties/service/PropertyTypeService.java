@@ -26,5 +26,7 @@ public class PropertyTypeService {
 		List<PropertyType> saleTypes = propertyTypesResponse.getResult();
 		return saleTypes;
 	}
+	
+	
 
 }

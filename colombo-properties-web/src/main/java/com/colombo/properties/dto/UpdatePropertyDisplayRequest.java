@@ -25,4 +25,9 @@ public class UpdatePropertyDisplayRequest {
 	public void setDisplay(Boolean display) {
 		this.display = display;
 	}
+	
+	public UpdatePropertyDisplayRequest(Long id, Boolean display) {
+		this.setId(id);
+		this.setDisplay(display);
+	}
 }

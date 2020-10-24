@@ -17,6 +17,7 @@ import com.colombo.properties.dto.CreatePropertyRequest;
 import com.colombo.properties.dto.FilterPropertyRequest;
 import com.colombo.properties.dto.PropertiesResponse;
 import com.colombo.properties.dto.PropertyResponse;
+import com.colombo.properties.dto.UpdatePropertyDisplayRequest;
 import com.colombo.properties.model.Property;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -119,6 +120,70 @@ public class PropertyService {
 
 			properties = (List<Property>) propertiesResponse.getBody().getResult();
 
+		} catch (ClassCastException e) {
+			System.out.println(e.getStackTrace());
+		}
+		return properties;
+	}
+
+	public List<Property> getPendingProperties(String jwt) {
+
+		List<Property> properties = null;
+
+		try {
+			HttpEntity<String> jwtReq = prepareWithJwt(jwt, null);
+
+			ResponseEntity<PropertiesResponse> propertiesResponse = restTemplate.exchange(
+					serverBaseUrl + "property/display-waiting-only", HttpMethod.GET, jwtReq, PropertiesResponse.class);
+			if (// propertiesResponse.getStatus() == 201
+			propertiesResponse.getStatusCode().equals(HttpStatus.ACCEPTED))
+//				return propertiesResponse.getResult();
+				System.out.println("htter : " + propertiesResponse.getBody().getResult());
+			properties = propertiesResponse.getBody().getResult();
+		} catch (ClassCastException e) {
+			System.out.println(e.getStackTrace());
+		}
+		return properties;
+	}
+
+	public List<Property> getFilteredPendingProperties(FilterPropertyRequest request, String jwt)
+			throws JsonProcessingException {
+
+		List<Property> properties = null;
+
+		try {
+			String req = new ObjectMapper().writeValueAsString(request);
+			HttpEntity<String> jwtReq = prepareWithJwt(jwt, req);
+
+			ResponseEntity<PropertiesResponse> propertiesResponse = restTemplate.exchange(
+					serverBaseUrl + "property/filter-pending", HttpMethod.POST, jwtReq, PropertiesResponse.class);
+			if (// propertiesResponse.getStatus() == 201
+			propertiesResponse.getStatusCode().equals(HttpStatus.ACCEPTED))
+//				return propertiesResponse.getResult();
+				System.out.println("htter : " + propertiesResponse.getBody().getResult());
+			properties = propertiesResponse.getBody().getResult();
+		} catch (ClassCastException e) {
+			System.out.println(e.getStackTrace());
+		}
+		return properties;
+	}
+
+	public List<Property> updateDisplay(String jwt,Long id) throws JsonProcessingException {
+
+		List<Property> properties = null;
+
+		try {
+			String req = new ObjectMapper().writeValueAsString(new UpdatePropertyDisplayRequest(id,true));
+		
+			HttpEntity<String> jwtReq = prepareWithJwt(jwt, req);
+
+			ResponseEntity<PropertiesResponse> propertiesResponse = restTemplate.exchange(
+					serverBaseUrl + "property/update-display", HttpMethod.PUT, jwtReq, PropertiesResponse.class);
+			if (// propertiesResponse.getStatus() == 201
+			propertiesResponse.getStatusCode().equals(HttpStatus.ACCEPTED))
+//				return propertiesResponse.getResult();
+				System.out.println("htter : " + propertiesResponse.getBody().getResult());
+			properties = propertiesResponse.getBody().getResult();
 		} catch (ClassCastException e) {
 			System.out.println(e.getStackTrace());
 		}

@@ -32,7 +32,12 @@
 						<li class="nav-item active" style="padding-right: 15px;"><a
 							class="nav-link" href="/contact-record"><strong>Contact
 									Requests</strong> <span class="sr-only">(current)</span></a></li>
-					</c:when>
+					
+					<li class="nav-item active" style="padding-right: 15px;"><a
+							class="nav-link" href="/pending"><strong>View Pending
+									Properties</strong> <span class="sr-only">(current)</span></a></li>
+				
+				</c:when>
 					<c:otherwise>
 						<a></a>
 

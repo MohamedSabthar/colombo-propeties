@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.colombo.properties.dto.ContactUsRequest;
@@ -32,8 +34,8 @@ public class HomeController {
 	ContactService contactService;
 	@Autowired
 	AuthService authService;
-	
-	//method to pass role to view
+
+	// method to pass role to view
 	private ModelAndView setRole(ModelAndView mv) {
 		if (authService.Jwt != null)
 			mv.addObject("role", authService.parser(authService.Jwt).get("role"));
@@ -97,6 +99,47 @@ public class HomeController {
 			mv.setViewName("redirect:/login");
 
 		}
+		return mv;
+	}
+
+	@GetMapping("/pending")
+	public ModelAndView pending() {
+		ModelAndView mv = new ModelAndView();
+		// pass role
+		mv = setRole(mv);
+		if (authService.Jwt != null) {
+			mv.addObject("properties", propertyService.getPendingProperties(authService.Jwt));
+			mv.addObject("saleTypes", saleTyperService.getAllSaleType());
+			mv.addObject("propertyTypes", propertyTypeService.getAllPropertyType());
+			mv.addObject("locations", locationService.getAllLocation());
+			mv.addObject("filterPropertyRequest", new FilterPropertyRequest());
+
+			mv.setViewName("pending");
+		} else
+			mv.setViewName("redirect:/login");
+
+		return mv;
+	}
+
+	@GetMapping("/update-display/{id}")
+	public ModelAndView updateDisplay(@PathVariable Long id) {
+		ModelAndView mv = new ModelAndView();
+		try {
+			// pass role
+			mv = setRole(mv);
+			if (authService.Jwt != null) {
+
+				propertyService.updateDisplay(authService.Jwt, id);
+
+				mv.setViewName("add-success");
+			} else
+				mv.setViewName("redirect:/login");
+
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		return mv;
 	}
 
