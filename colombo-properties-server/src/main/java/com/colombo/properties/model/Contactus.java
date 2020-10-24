@@ -1,16 +1,11 @@
 package com.colombo.properties.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 
 import com.colombo.properties.dto.ContactUsRequest;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Contactus {
@@ -24,10 +19,10 @@ public class Contactus {
 	private String subject;
 	private String message;
 	private String email;
-	
+
 	public Contactus() {
 	};
-	
+
 	public Contactus(ContactUsRequest request) {
 		this.setName(request.getName());
 		this.setSubject(request.getSubject());

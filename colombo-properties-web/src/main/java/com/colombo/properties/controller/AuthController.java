@@ -32,16 +32,14 @@ public class AuthController {
 
 	@PostMapping("/login")
 	public ModelAndView postLogin(@ModelAttribute("loginRequest") AuthRequest request) {
-
 		System.out.println(request);
 		ModelAndView mv = new ModelAndView();
 		String token = authService.getToken(request);
 		authService.Jwt = token;
-//		System.out.println("%%%hit");
 		System.out.println(token);
 		if (authService.Jwt != null) {
-			mv.setViewName("redirect:/property/create");}
-		else
+			mv.setViewName("redirect:/property/create");
+		} else
 			mv.setViewName("redirect:/login");
 		return mv;
 	}

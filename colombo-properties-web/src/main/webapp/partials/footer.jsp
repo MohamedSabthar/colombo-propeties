@@ -6,12 +6,12 @@
 
 	<!-- Copyright -->
 	<div class=" footer-copyright py-4">
-	<ul class="list-unstyled text-center">
-		<li class="copyright d-block" style="text-align: center;">
-			© 2020 Copyright : All Rights Reserved</li>
-		<li class="team  font-weight-bold d-inline-block"
-			style="text-align: right;">Designed & Developed By E-Crew</li>
-			</ul>
+		<ul class="list-unstyled text-center">
+			<li class="copyright d-block" style="text-align: center;">© 2020
+				Copyright : All Rights Reserved</li>
+			<li class="team  font-weight-bold d-inline-block"
+				style="text-align: right;">Designed & Developed By E-Crew</li>
+		</ul>
 	</div>
 	<!-- Team -->
 

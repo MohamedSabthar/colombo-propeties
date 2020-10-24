@@ -50,17 +50,18 @@ public class PropertyController {
 	@Autowired
 	AuthService authService;
 
+	//storage location to image directory
 	public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/webapp/uploads";
 
+	//method to pass role to view
 	private ModelAndView setRole(ModelAndView mv) {
-		// pass role
 		if (authService.Jwt != null)
 			mv.addObject("role", authService.parser(authService.Jwt).get("role"));
 		else
 			mv.addObject("role", null);
 		return mv;
 	}
-	
+
 	@GetMapping()
 	public String home() {
 		return "redirect:/";
@@ -87,7 +88,7 @@ public class PropertyController {
 
 		ModelAndView mv = new ModelAndView();
 		Map<String, String> search = new HashMap<String, String>();
-		
+
 		// pass role
 		mv = setRole(mv);
 		mv.addObject("properties", propertyService.getFilteredProperties(filterPropertyRequest));
@@ -131,11 +132,10 @@ public class PropertyController {
 	public ModelAndView create(@RequestPart("files") MultipartFile[] files,
 			@ModelAttribute("createProperty") CreatePropertyRequest request) {
 		var mv = new ModelAndView();
-		
+
 		// pass role
 		mv = setRole(mv);
-				
-				
+
 		var images = new ArrayList<String>();
 		StringBuilder fileNames = new StringBuilder();
 		int counter = 0;
@@ -174,13 +174,11 @@ public class PropertyController {
 
 	@GetMapping("/create")
 	public ModelAndView create() {
-		System.out.println("hit****");
 		var mv = new ModelAndView();
-		
+
 		// pass role
 		mv = setRole(mv);
-				
-				
+
 		if (authService.Jwt != null) {
 			int userId = (int) authService.parser(authService.Jwt).get("id");
 

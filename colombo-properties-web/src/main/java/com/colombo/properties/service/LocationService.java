@@ -8,9 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.colombo.properties.dto.LocationsResponse;
-import com.colombo.properties.dto.SaleTypesResponse;
 import com.colombo.properties.model.Location;
-import com.colombo.properties.model.SaleType;
 
 @Service
 public class LocationService {

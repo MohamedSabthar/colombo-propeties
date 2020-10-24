@@ -22,10 +22,10 @@
 
 	<!-- Brand -->
 
-		<jsp:include page="../partials/header.jsp">
+	<jsp:include page="../partials/header.jsp">
 		<jsp:param name="type" value="all" />
 	</jsp:include>
-	
+
 	<!--- Cards -->
 	<c:if test="${not empty property}">
 		<div class="container rounded-lg border-0 "
@@ -130,7 +130,7 @@
 									<div class="card-body">${property.description}</div>
 								</div>
 							</div>
-						 <div class="card">
+							<div class="card">
 								<div class="card-header bg-white" id="headingTwo">
 									<h5 class="mb-0">
 										<button class="btn btn-link" data-toggle="collapse"
@@ -145,16 +145,14 @@
 								<div id="collapseTwo" class="collapse"
 									aria-labelledby="headingTwo" data-parent="#accordion">
 									<div class="card-body col-md-6 col-sm-6"
-										style="padding-left: 5%;">
-										
+										style="padding-left: 5%;"></div>
+									<div id="collapseOne" class="collapse show"
+										aria-labelledby="headingOne" data-parent="#accordion">
+										<div class="card-body">${property.address}</div>
 									</div>
-	<div id="collapseOne" class="collapse show"
-									aria-labelledby="headingOne" data-parent="#accordion">
-									<div class="card-body">${property.address}</div>
-								</div>
 
 								</div>
-							</div> 
+							</div>
 
 						</div>
 
@@ -211,7 +209,7 @@
 								<div class="card card-body">${property.user.email}</div>
 							</div>
 							<br>
-						<%-- 	<button class="btn btn-primary btn-lg btn-block" type="button"
+							<%-- 	<button class="btn btn-primary btn-lg btn-block" type="button"
 								data-toggle="collapse" data-target="#collapseExample3"
 								aria-expanded="false" aria-controls="collapseExample3">
 								Address</button>
@@ -229,11 +227,11 @@
 
 			</div>
 		</div>
-		
+
 	</c:if>
 	<jsp:include page="../partials/footer.jsp">
-    <jsp:param name="type" value="all"/>
-</jsp:include>
-	
+		<jsp:param name="type" value="all" />
+	</jsp:include>
+
 </body>
 </html>

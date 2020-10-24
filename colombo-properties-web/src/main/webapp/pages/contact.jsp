@@ -50,8 +50,9 @@
 								<!--Grid column-->
 								<div class="col-md-6">
 									<div class="md-form mb-0">
-										<label for="name" class="">Your name</label> <form:input
-											type="text" id="name" name="name" class="form-control" path="name"/>
+										<label for="name" class="">Your name</label>
+										<form:input type="text" id="name" name="name"
+											class="form-control" path="name" />
 
 									</div>
 								</div>
@@ -60,8 +61,9 @@
 								<!--Grid column-->
 								<div class="col-md-6">
 									<div class="md-form mb-0">
-										<label for="email" class="">Your email</label> <form:input path="email"
-											type="text" id="email" name="email" class="form-control"/>
+										<label for="email" class="">Your email</label>
+										<form:input path="email" type="text" id="email" name="email"
+											class="form-control" />
 
 									</div>
 								</div>
@@ -74,8 +76,9 @@
 							<div class="row">
 								<div class="col-md-12">
 									<div class="md-form mb-0">
-										<label for="subject" class="">Subject</label> <form:input
-											type="text" id="subject" name="subject" class="form-control" path="subject"/>
+										<label for="subject" class="">Subject</label>
+										<form:input type="text" id="subject" name="subject"
+											class="form-control" path="subject" />
 
 									</div>
 								</div>
@@ -90,8 +93,8 @@
 
 									<div class="md-form">
 										<label for="message">Your message</label>
-										<form:textarea type="text" id="message" name="message" rows="2" path="message"
-											class="form-control md-textarea"/>
+										<form:textarea type="text" id="message" name="message"
+											rows="2" path="message" class="form-control md-textarea" />
 
 									</div>
 
@@ -99,19 +102,14 @@
 							</div>
 							<!--Grid row-->
 
-						
+							<div class="text-center text-md-left mt-3">
+								<input type="submit" value="submit"
+									class="btn btn-info btn-block btn-warning" />
+							</div>
 
-						<div class="text-center text-md-left mt-3">
-							
-							<input type="submit" value="submit"
-						class="btn btn-info btn-block btn-warning" />
-						</div>
 						</form:form>
 					</div>
-
-
 				</div>
-
 			</section>
 		</div>
 	</div>

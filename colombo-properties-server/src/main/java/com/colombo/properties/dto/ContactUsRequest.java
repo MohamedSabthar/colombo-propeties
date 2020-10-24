@@ -43,7 +43,5 @@ public class ContactUsRequest {
 		return "ContactUsRequest [name=" + name + ", subject=" + subject + ", message=" + message + ", email=" + email
 				+ "]";
 	}
-	
-	
 
 }

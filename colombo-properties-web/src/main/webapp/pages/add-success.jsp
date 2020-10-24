@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,38 +18,28 @@
 </head>
 <body style="background-color: #f2f2f2;">
 
-
-	<!-- Navigation -->
-
-	<!-- Brand -->
-
 	<jsp:include page="../partials/header.jsp">
-    <jsp:param name="type" value="all"/>
-</jsp:include>
+		<jsp:param name="type" value="all" />
+	</jsp:include>
 
-
-<div class="container"
+	<div class="container"
 		style="background-color: #f2f2f2; align-items: center;">
 		<div class="card ad-card my-4"
 			style="width: 65%; padding: 3%;; margin: auto;">
 			<section class="mb-4">
-
 				<div class="row">
-
 					<!--Grid column-->
 					<div class="col text-center">
 						<h1 class="display-4 text-success">Success</h1>
 					</div>
-
-
 				</div>
-
 			</section>
 		</div>
 	</div>
-	
+
 	<jsp:include page="../partials/footer.jsp">
-    <jsp:param name="type" value="all"/>
-</jsp:include>
+		<jsp:param name="type" value="all" />
+	</jsp:include>
+	
 </body>
 </html>

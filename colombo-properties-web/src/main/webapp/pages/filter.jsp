@@ -150,8 +150,8 @@
 
 
 	<jsp:include page="../partials/footer.jsp">
-    <jsp:param name="type" value="all"/>
-</jsp:include>
+		<jsp:param name="type" value="all" />
+	</jsp:include>
 </body>
 
 </html>

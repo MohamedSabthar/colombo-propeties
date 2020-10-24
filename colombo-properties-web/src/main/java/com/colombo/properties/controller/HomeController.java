@@ -33,8 +33,8 @@ public class HomeController {
 	@Autowired
 	AuthService authService;
 	
+	//method to pass role to view
 	private ModelAndView setRole(ModelAndView mv) {
-		// pass role
 		if (authService.Jwt != null)
 			mv.addObject("role", authService.parser(authService.Jwt).get("role"));
 		else
@@ -46,13 +46,13 @@ public class HomeController {
 	public ModelAndView home() {
 		ModelAndView mv = new ModelAndView();
 		// pass role
-				mv = setRole(mv);
+		mv = setRole(mv);
 		mv.addObject("properties", propertyService.getAcceptedProperties());
 		mv.addObject("saleTypes", saleTyperService.getAllSaleType());
 		mv.addObject("propertyTypes", propertyTypeService.getAllPropertyType());
 		mv.addObject("locations", locationService.getAllLocation());
 		mv.addObject("filterPropertyRequest", new FilterPropertyRequest());
-	
+
 		mv.setViewName("home");
 		System.out.println(propertyTypeService.getAllPropertyType());
 		return mv;
@@ -91,11 +91,11 @@ public class HomeController {
 		mv = setRole(mv);
 		if (authService.Jwt != null) {
 			mv.addObject("records", contactService.getAllContactRecords(authService.Jwt));
-		
+
 			mv.setViewName("contacts-records");
 		} else {
 			mv.setViewName("redirect:/login");
-			
+
 		}
 		return mv;
 	}
