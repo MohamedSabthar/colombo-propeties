@@ -127,7 +127,17 @@
 
 								<div id="collapseOne" class="collapse show"
 									aria-labelledby="headingOne" data-parent="#accordion">
-									<div class="card-body">${property.description}</div>
+									<div class="card-body ">
+										${property.description}
+										<ul class="list-unstyled mt-3">
+											<li><strong>Land Size : </strong> ${property.landSize}</li>
+											<li><strong>Property Size : </strong>
+												${property.propertySize}</li>
+											<li><strong>Address : </strong>${property.address}</li>
+
+										</ul>
+
+									</div>
 								</div>
 							</div>
 							<div class="card">
@@ -144,11 +154,20 @@
 								</div>
 								<div id="collapseTwo" class="collapse"
 									aria-labelledby="headingTwo" data-parent="#accordion">
-									<div class="card-body col-md-6 col-sm-6"
-										style="padding-left: 5%;"></div>
+
 									<div id="collapseOne" class="collapse show"
 										aria-labelledby="headingOne" data-parent="#accordion">
-										<div class="card-body">${property.address}</div>
+										<div class="card-body">
+
+											<ul class="list-unstyled mt-3">
+												<li><strong>Location : </strong>
+													${property.location.location}</li>
+												<li><strong>Address : </strong> ${property.address}</li>
+
+											</ul>
+
+
+										</div>
 									</div>
 
 								</div>
