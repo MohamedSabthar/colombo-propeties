@@ -24,6 +24,7 @@ public class UserService {
 	
 	public User registerUser(RegisterUserRequest request) {
 		User user = new User(request);
+		user.setRole("user");
 		User result = userRepository.save(user);
 		
 		return result;
